@@ -1,0 +1,114 @@
+{
+  "project_info": {
+    "project_number": "885264218854",
+    "project_id": "bssp-b7552",
+    "storage_bucket": "bssp-b7552.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:885264218854:android:0b08d1891efdea34aad927",
+        "android_client_info": {
+          "package_name": "bss.upload"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "885264218854-de7qfok7pt46ud7vgvipmdl0hpledbms.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "bss.upload",
+            "certificate_hash": "d8356aa394df44ace188208991475601bb65b80e"
+          }
+        },
+        {
+          "client_id": "885264218854-lo341ktllljj4jcdrig5r6t091n2rtjg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "bss.upload",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "885264218854-1osp6t1oa03c7hue1hfqn23ljmg33sdp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBl3fjVcj5luSx2MIRwFhCpwdJO5urhvLk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "885264218854-1osp6t1oa03c7hue1hfqn23ljmg33sdp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "885264218854-bq8sai0j76aulkvejb1s5usrmklu3slh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "bss.upload"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:885264218854:android:56512618e6a4c6c8aad927",
+        "android_client_info": {
+          "package_name": "com.mycompany.bharathsevaashramsangha"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "885264218854-42hav8diet1aacguletv331g4mfad7hb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mycompany.bharathsevaashramsangha",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "885264218854-ppijlk8tcj2qmj0bofps9cr28hohurmv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mycompany.bharathsevaashramsangha",
+            "certificate_hash": "d8356aa394df44ace188208991475601bb65b80e"
+          }
+        },
+        {
+          "client_id": "885264218854-1osp6t1oa03c7hue1hfqn23ljmg33sdp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBl3fjVcj5luSx2MIRwFhCpwdJO5urhvLk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "885264218854-1osp6t1oa03c7hue1hfqn23ljmg33sdp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "885264218854-bq8sai0j76aulkvejb1s5usrmklu3slh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "bss.upload"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
