@@ -7,7 +7,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -47,15 +46,6 @@ class _LoginWidgetState extends State<LoginWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).dark900,
@@ -328,8 +318,14 @@ class _LoginWidgetState extends State<LoginWidget> {
                         ));
 
                         context.goNamedAuth(
-                          'event',
+                          'all_pages',
                           context.mounted,
+                          queryParameters: {
+                            'tabbarpageindex': serializeParam(
+                              0,
+                              ParamType.int,
+                            ),
+                          }.withoutNulls,
                           extra: <String, dynamic>{
                             kTransitionInfoKey: TransitionInfo(
                               hasTransition: true,
@@ -424,7 +420,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                               selectedCity: _model.dropDownValue,
                             ));
 
-                            context.goNamedAuth('event', context.mounted);
+                            context.goNamedAuth('all_pages', context.mounted);
                           },
                           child: FaIcon(
                             FontAwesomeIcons.google,

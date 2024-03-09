@@ -6,7 +6,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/no_noti/no_noti_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -167,12 +166,18 @@ class _NotificationsWidgetState extends State<NotificationsWidget>
                           highlightColor: Colors.transparent,
                           onTap: () async {
                             context.goNamed(
-                              'facilities',
+                              'all_pages',
+                              queryParameters: {
+                                'tabbarpageindex': serializeParam(
+                                  1,
+                                  ParamType.int,
+                                ),
+                              }.withoutNulls,
                               extra: <String, dynamic>{
                                 kTransitionInfoKey: TransitionInfo(
                                   hasTransition: true,
                                   transitionType: PageTransitionType.fade,
-                                  duration: Duration(milliseconds: 900),
+                                  duration: Duration(milliseconds: 600),
                                 ),
                               },
                             );

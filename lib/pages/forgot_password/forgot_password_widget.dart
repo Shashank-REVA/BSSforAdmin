@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'forgot_password_model.dart';
@@ -39,15 +38,6 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -96,8 +86,10 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                           style: FlutterFlowTheme.of(context)
                               .headlineMedium
                               .override(
-                                fontFamily: 'Lexend Deca',
-                                color: Colors.black,
+                                fontFamily: 'Raleway',
+                                color: Color(0xFF2F2F2F),
+                                fontSize: 26.0,
+                                fontWeight: FontWeight.w800,
                               ),
                         ),
                       ),

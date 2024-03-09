@@ -8,7 +8,6 @@ import '/flutter_flow/form_field_controller.dart';
 import 'login_widget.dart' show LoginWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -31,10 +30,12 @@ class LoginModel extends FlutterFlowModel<LoginWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     passwordVisibility = false;
   }
 
+  @override
   void dispose() {
     textFieldFocusNode1?.dispose();
     emailTextController?.dispose();

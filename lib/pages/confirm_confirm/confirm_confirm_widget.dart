@@ -7,7 +7,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'confirm_confirm_model.dart';
@@ -131,7 +130,13 @@ class _ConfirmConfirmWidgetState extends State<ConfirmConfirmWidget> {
                         await buttonFacilitiesRecord!.reference.delete();
 
                         context.goNamed(
-                          'facilities',
+                          'all_pages',
+                          queryParameters: {
+                            'tabbarpageindex': serializeParam(
+                              2,
+                              ParamType.int,
+                            ),
+                          }.withoutNulls,
                           extra: <String, dynamic>{
                             kTransitionInfoKey: TransitionInfo(
                               hasTransition: true,
@@ -213,7 +218,13 @@ class _ConfirmConfirmWidgetState extends State<ConfirmConfirmWidget> {
                         await buttonFacilitiesRecord!.reference.delete();
 
                         context.goNamed(
-                          'confirmedfacilities',
+                          'all_pages',
+                          queryParameters: {
+                            'tabbarpageindex': serializeParam(
+                              2,
+                              ParamType.int,
+                            ),
+                          }.withoutNulls,
                           extra: <String, dynamic>{
                             kTransitionInfoKey: TransitionInfo(
                               hasTransition: true,

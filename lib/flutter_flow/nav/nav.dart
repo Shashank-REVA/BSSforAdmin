@@ -79,13 +79,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? EventWidget() : LoginWidget(),
+          appStateNotifier.loggedIn ? AllPagesWidget() : LoginWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? EventWidget() : LoginWidget(),
+              appStateNotifier.loggedIn ? AllPagesWidget() : LoginWidget(),
         ),
         FFRoute(
           name: 'Login',
@@ -98,27 +98,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => ForgotPasswordWidget(),
         ),
         FFRoute(
-          name: 'event',
-          path: '/event',
-          builder: (context, params) => EventWidget(
+          name: 'all_pages',
+          path: '/allPages',
+          builder: (context, params) => AllPagesWidget(
             btnclr: params.getParam('btnclr', ParamType.Color),
             btntxt: params.getParam('btntxt', ParamType.Color),
-          ),
-        ),
-        FFRoute(
-          name: 'confirmedfacilities',
-          path: '/confirmedfacilities',
-          builder: (context, params) => ConfirmedfacilitiesWidget(
-            btnclr: params.getParam('btnclr', ParamType.Color),
-            btntxt: params.getParam('btntxt', ParamType.Color),
-          ),
-        ),
-        FFRoute(
-          name: 'facilities',
-          path: '/facilities',
-          builder: (context, params) => FacilitiesWidget(
-            btnclr: params.getParam('btnclr', ParamType.Color),
-            btntxt: params.getParam('btntxt', ParamType.Color),
+            tabbarpageindex: params.getParam('tabbarpageindex', ParamType.int),
           ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
@@ -291,6 +276,7 @@ class FFRoute {
           return null;
         },
         pageBuilder: (context, state) {
+          fixStatusBarOniOS16AndBelow(context);
           final ffParams = FFParameters(state, asyncParams);
           final page = ffParams.hasFutures
               ? FutureBuilder(
