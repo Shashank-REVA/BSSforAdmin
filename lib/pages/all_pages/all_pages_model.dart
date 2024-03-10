@@ -12,6 +12,7 @@ import '/pages/empty/empty_widget.dart';
 import '/pages/no_facility/no_facility_widget.dart';
 import '/pages/nobooking/nobooking_widget.dart';
 import '/pages/notifications/notifications_widget.dart';
+import '/pages/rooms/rooms_widget.dart';
 import 'all_pages_widget.dart' show AllPagesWidget;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

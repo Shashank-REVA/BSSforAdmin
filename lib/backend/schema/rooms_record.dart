@@ -32,15 +32,15 @@ class RoomsRecord extends FirestoreRecord {
   bool hasCity() => _city != null;
 
   // "no" field.
-  double? _no;
-  double get no => _no ?? 0.0;
+  int? _no;
+  int get no => _no ?? 0;
   bool hasNo() => _no != null;
 
   void _initializeFields() {
     _roomType = snapshotData['room_type'] as String?;
     _price = castToType<double>(snapshotData['price']);
     _city = snapshotData['city'] as String?;
-    _no = castToType<double>(snapshotData['no']);
+    _no = castToType<int>(snapshotData['no']);
   }
 
   static CollectionReference get collection =>
@@ -80,7 +80,7 @@ Map<String, dynamic> createRoomsRecordData({
   String? roomType,
   double? price,
   String? city,
-  double? no,
+  int? no,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{

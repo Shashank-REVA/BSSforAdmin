@@ -12,6 +12,7 @@ import '/pages/empty/empty_widget.dart';
 import '/pages/no_facility/no_facility_widget.dart';
 import '/pages/nobooking/nobooking_widget.dart';
 import '/pages/notifications/notifications_widget.dart';
+import '/pages/rooms/rooms_widget.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -1751,9 +1752,11 @@ class _AllPagesWidgetState extends State<AllPagesWidget>
                                                   FlutterFlowTheme.of(context)
                                                       .labelMedium
                                                       .override(
-                                                        fontFamily: 'Ubuntu',
+                                                        fontFamily: 'Raleway',
                                                         color:
-                                                            Color(0xFF4A456B),
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryText,
                                                         fontSize: 16.0,
                                                       ),
                                               hintStyle:
@@ -1765,7 +1768,7 @@ class _AllPagesWidgetState extends State<AllPagesWidget>
                                                   width: 2.0,
                                                 ),
                                                 borderRadius:
-                                                    BorderRadius.circular(20.0),
+                                                    BorderRadius.circular(25.0),
                                               ),
                                               focusedBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
@@ -1773,7 +1776,7 @@ class _AllPagesWidgetState extends State<AllPagesWidget>
                                                   width: 2.0,
                                                 ),
                                                 borderRadius:
-                                                    BorderRadius.circular(20.0),
+                                                    BorderRadius.circular(25.0),
                                               ),
                                               errorBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
@@ -1783,7 +1786,7 @@ class _AllPagesWidgetState extends State<AllPagesWidget>
                                                   width: 2.0,
                                                 ),
                                                 borderRadius:
-                                                    BorderRadius.circular(20.0),
+                                                    BorderRadius.circular(25.0),
                                               ),
                                               focusedErrorBorder:
                                                   OutlineInputBorder(
@@ -1794,13 +1797,13 @@ class _AllPagesWidgetState extends State<AllPagesWidget>
                                                   width: 2.0,
                                                 ),
                                                 borderRadius:
-                                                    BorderRadius.circular(20.0),
+                                                    BorderRadius.circular(25.0),
                                               ),
                                             ),
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
-                                                  fontFamily: 'Ubuntu',
+                                                  fontFamily: 'Raleway',
                                                   color: Colors.black,
                                                   fontSize: 18.0,
                                                 ),
@@ -1825,9 +1828,11 @@ class _AllPagesWidgetState extends State<AllPagesWidget>
                                                   FlutterFlowTheme.of(context)
                                                       .labelMedium
                                                       .override(
-                                                        fontFamily: 'Ubuntu',
+                                                        fontFamily: 'Raleway',
                                                         color:
-                                                            Color(0xFF4A456B),
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryText,
                                                         fontSize: 16.0,
                                                       ),
                                               hintStyle:
@@ -1839,7 +1844,7 @@ class _AllPagesWidgetState extends State<AllPagesWidget>
                                                   width: 2.0,
                                                 ),
                                                 borderRadius:
-                                                    BorderRadius.circular(20.0),
+                                                    BorderRadius.circular(25.0),
                                               ),
                                               focusedBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
@@ -1847,7 +1852,7 @@ class _AllPagesWidgetState extends State<AllPagesWidget>
                                                   width: 2.0,
                                                 ),
                                                 borderRadius:
-                                                    BorderRadius.circular(20.0),
+                                                    BorderRadius.circular(25.0),
                                               ),
                                               errorBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
@@ -1857,7 +1862,7 @@ class _AllPagesWidgetState extends State<AllPagesWidget>
                                                   width: 2.0,
                                                 ),
                                                 borderRadius:
-                                                    BorderRadius.circular(20.0),
+                                                    BorderRadius.circular(25.0),
                                               ),
                                               focusedErrorBorder:
                                                   OutlineInputBorder(
@@ -1868,13 +1873,13 @@ class _AllPagesWidgetState extends State<AllPagesWidget>
                                                   width: 2.0,
                                                 ),
                                                 borderRadius:
-                                                    BorderRadius.circular(20.0),
+                                                    BorderRadius.circular(25.0),
                                               ),
                                             ),
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
-                                                  fontFamily: 'Ubuntu',
+                                                  fontFamily: 'Raleway',
                                                   color: Colors.black,
                                                   fontSize: 18.0,
                                                 ),
@@ -1901,9 +1906,11 @@ class _AllPagesWidgetState extends State<AllPagesWidget>
                                                   FlutterFlowTheme.of(context)
                                                       .labelMedium
                                                       .override(
-                                                        fontFamily: 'Ubuntu',
+                                                        fontFamily: 'Raleway',
                                                         color:
-                                                            Color(0xFF4A456B),
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryText,
                                                         fontSize: 16.0,
                                                       ),
                                               hintStyle:
@@ -1915,7 +1922,7 @@ class _AllPagesWidgetState extends State<AllPagesWidget>
                                                   width: 2.0,
                                                 ),
                                                 borderRadius:
-                                                    BorderRadius.circular(20.0),
+                                                    BorderRadius.circular(25.0),
                                               ),
                                               focusedBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
@@ -1923,7 +1930,7 @@ class _AllPagesWidgetState extends State<AllPagesWidget>
                                                   width: 2.0,
                                                 ),
                                                 borderRadius:
-                                                    BorderRadius.circular(20.0),
+                                                    BorderRadius.circular(25.0),
                                               ),
                                               errorBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
@@ -1933,7 +1940,7 @@ class _AllPagesWidgetState extends State<AllPagesWidget>
                                                   width: 2.0,
                                                 ),
                                                 borderRadius:
-                                                    BorderRadius.circular(20.0),
+                                                    BorderRadius.circular(25.0),
                                               ),
                                               focusedErrorBorder:
                                                   OutlineInputBorder(
@@ -1944,13 +1951,13 @@ class _AllPagesWidgetState extends State<AllPagesWidget>
                                                   width: 2.0,
                                                 ),
                                                 borderRadius:
-                                                    BorderRadius.circular(20.0),
+                                                    BorderRadius.circular(25.0),
                                               ),
                                             ),
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
-                                                  fontFamily: 'Ubuntu',
+                                                  fontFamily: 'Raleway',
                                                   color: Colors.black,
                                                   fontSize: 18.0,
                                                 ),
@@ -1966,7 +1973,7 @@ class _AllPagesWidgetState extends State<AllPagesWidget>
                                           child: Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 20.0, 0.0, 0.0),
+                                                    0.0, 20.0, 0.0, 20.0),
                                             child: FFButtonWidget(
                                               onPressed: () async {
                                                 await RoomsRecord.collection
@@ -1982,7 +1989,7 @@ class _AllPagesWidgetState extends State<AllPagesWidget>
                                                       roomType: _model
                                                           .romtypeController
                                                           .text,
-                                                      no: double.tryParse(_model
+                                                      no: int.tryParse(_model
                                                           .noController.text),
                                                     ));
 
@@ -2018,7 +2025,7 @@ class _AllPagesWidgetState extends State<AllPagesWidget>
                                                     EdgeInsetsDirectional
                                                         .fromSTEB(
                                                             0.0, 0.0, 0.0, 0.0),
-                                                color: Color(0xFF4A456B),
+                                                color: Color(0xFF322E5C),
                                                 textStyle:
                                                     FlutterFlowTheme.of(context)
                                                         .titleSmall
@@ -2036,6 +2043,98 @@ class _AllPagesWidgetState extends State<AllPagesWidget>
                                                 borderRadius:
                                                     BorderRadius.circular(8.0),
                                               ),
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  16.0, 12.0, 0.0, 12.0),
+                                          child: Text(
+                                            'List of Rooms',
+                                            style: FlutterFlowTheme.of(context)
+                                                .displaySmall
+                                                .override(
+                                                  fontFamily: 'SuperTall',
+                                                  color: Color(0xFFEC7834),
+                                                  fontSize: 32.0,
+                                                  fontWeight: FontWeight.w600,
+                                                  useGoogleFonts: false,
+                                                ),
+                                          ),
+                                        ),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.transparent,
+                                          ),
+                                          child: AuthUserStreamWidget(
+                                            builder: (context) => StreamBuilder<
+                                                List<RoomsRecord>>(
+                                              stream: queryRoomsRecord(
+                                                queryBuilder: (roomsRecord) =>
+                                                    roomsRecord.where(
+                                                  'city',
+                                                  isEqualTo: valueOrDefault(
+                                                      currentUserDocument
+                                                          ?.selectedCity,
+                                                      ''),
+                                                ),
+                                              ),
+                                              builder: (context, snapshot) {
+                                                // Customize what your widget looks like when it's loading.
+                                                if (!snapshot.hasData) {
+                                                  return Center(
+                                                    child: SizedBox(
+                                                      width: 50.0,
+                                                      height: 50.0,
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                        valueColor:
+                                                            AlwaysStoppedAnimation<
+                                                                Color>(
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  );
+                                                }
+                                                List<RoomsRecord>
+                                                    listViewRoomsRecordList =
+                                                    snapshot.data!;
+                                                return ListView.builder(
+                                                  padding: EdgeInsets.zero,
+                                                  shrinkWrap: true,
+                                                  scrollDirection:
+                                                      Axis.vertical,
+                                                  itemCount:
+                                                      listViewRoomsRecordList
+                                                          .length,
+                                                  itemBuilder:
+                                                      (context, listViewIndex) {
+                                                    final listViewRoomsRecord =
+                                                        listViewRoomsRecordList[
+                                                            listViewIndex];
+                                                    return RoomsWidget(
+                                                      key: Key(
+                                                          'Key5mc_${listViewIndex}_of_${listViewRoomsRecordList.length}'),
+                                                      parameter1:
+                                                          listViewRoomsRecord
+                                                              .no,
+                                                      parameter2:
+                                                          listViewRoomsRecord
+                                                              .roomType,
+                                                      parameter3:
+                                                          listViewRoomsRecord
+                                                              .price,
+                                                      parameter4:
+                                                          listViewRoomsRecord
+                                                              .reference,
+                                                    );
+                                                  },
+                                                );
+                                              },
                                             ),
                                           ),
                                         ),
