@@ -17,6 +17,7 @@ import 'all_pages_widget.dart' show AllPagesWidget;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,6 +27,8 @@ class AllPagesModel extends FlutterFlowModel<AllPagesWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  final formKey2 = GlobalKey<FormState>();
+  final formKey1 = GlobalKey<FormState>();
   // State field(s) for TabBar widget.
   TabController? tabBarController;
   int get tabBarCurrentIndex =>
@@ -40,6 +43,14 @@ class AllPagesModel extends FlutterFlowModel<AllPagesWidget> {
   FocusNode? textFieldFocusNode;
   TextEditingController? textController1;
   String? Function(BuildContext, String?)? textController1Validator;
+  String? _textController1Validator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Field is required';
+    }
+
+    return null;
+  }
+
   DateTime? datePicked;
   // Stores action output result for [Backend Call - API (Cancel)] action in Button widget.
   ApiCallResponse? apiResulttlt;
@@ -47,19 +58,47 @@ class AllPagesModel extends FlutterFlowModel<AllPagesWidget> {
   FocusNode? romtypeFocusNode;
   TextEditingController? romtypeController;
   String? Function(BuildContext, String?)? romtypeControllerValidator;
+  String? _romtypeControllerValidator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Type is required';
+    }
+
+    return null;
+  }
+
   // State field(s) for pri widget.
   FocusNode? priFocusNode;
   TextEditingController? priController;
   String? Function(BuildContext, String?)? priControllerValidator;
+  String? _priControllerValidator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Price is required';
+    }
+
+    return null;
+  }
+
   // State field(s) for no widget.
   FocusNode? noFocusNode;
   TextEditingController? noController;
   String? Function(BuildContext, String?)? noControllerValidator;
+  String? _noControllerValidator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Number of room is required';
+    }
+
+    return null;
+  }
 
   /// Initialization and disposal methods.
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    textController1Validator = _textController1Validator;
+    romtypeControllerValidator = _romtypeControllerValidator;
+    priControllerValidator = _priControllerValidator;
+    noControllerValidator = _noControllerValidator;
+  }
 
   @override
   void dispose() {

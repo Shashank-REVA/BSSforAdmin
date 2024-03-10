@@ -90,7 +90,7 @@ class _RoomsWidgetState extends State<RoomsWidget> {
                 borderRadius: BorderRadius.circular(25.0),
                 border: Border.all(
                   color: Color(0xFF322E5C),
-                  width: 1.0,
+                  width: 3.0,
                 ),
               ),
               child: Column(
