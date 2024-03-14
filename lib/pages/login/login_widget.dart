@@ -64,7 +64,7 @@ class _LoginWidgetState extends State<LoginWidget> {
               ),
             ),
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1000.0),
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 50.0, 0.0, 1000.0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.end,
