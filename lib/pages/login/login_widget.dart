@@ -1,12 +1,12 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/form_field_controller.dart';
+import '/pages/only_admins/only_admins_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -35,6 +35,8 @@ class _LoginWidgetState extends State<LoginWidget> {
 
     _model.passwordTextController ??= TextEditingController();
     _model.textFieldFocusNode2 ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -210,97 +212,10 @@ class _LoginWidgetState extends State<LoginWidget> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(40.0, 0.0, 40.0, 20.0),
-                    child: StreamBuilder<List<CitiesRecord>>(
-                      stream: queryCitiesRecord(),
-                      builder: (context, snapshot) {
-                        // Customize what your widget looks like when it's loading.
-                        if (!snapshot.hasData) {
-                          return Center(
-                            child: SizedBox(
-                              width: 50.0,
-                              height: 50.0,
-                              child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  FlutterFlowTheme.of(context).primary,
-                                ),
-                              ),
-                            ),
-                          );
-                        }
-                        List<CitiesRecord> containerCitiesRecordList =
-                            snapshot.data!;
-                        return Container(
-                          width: double.infinity,
-                          height: 50.0,
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            boxShadow: [
-                              BoxShadow(
-                                blurRadius: 4.0,
-                                color: Color(0x33000000),
-                                offset: Offset(0.0, 2.0),
-                              )
-                            ],
-                            borderRadius: BorderRadius.circular(25.0),
-                            border: Border.all(
-                              color: Color(0x1EBCACAC),
-                            ),
-                          ),
-                          child: FlutterFlowDropDown<String>(
-                            controller: _model.dropDownValueController ??=
-                                FormFieldController<String>(null),
-                            options: containerCitiesRecordList
-                                .map((e) => e.name)
-                                .toList()
-                                .sortedList((e) => e),
-                            onChanged: (val) =>
-                                setState(() => _model.dropDownValue = val),
-                            width: 300.0,
-                            height: 50.0,
-                            searchHintTextStyle: FlutterFlowTheme.of(context)
-                                .labelMedium
-                                .override(
-                                  fontFamily: 'Raleway',
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryText,
-                                ),
-                            searchTextStyle:
-                                FlutterFlowTheme.of(context).bodyMedium,
-                            textStyle: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Ubuntu',
-                                  color: Colors.black,
-                                ),
-                            hintText: 'Set your City',
-                            searchHintText: 'Search for an item...',
-                            icon: Icon(
-                              Icons.keyboard_arrow_down_rounded,
-                              color: FlutterFlowTheme.of(context).secondaryText,
-                              size: 24.0,
-                            ),
-                            fillColor: Colors.white,
-                            elevation: 2.0,
-                            borderColor: Colors.transparent,
-                            borderWidth: 2.0,
-                            borderRadius: 25.0,
-                            margin: EdgeInsetsDirectional.fromSTEB(
-                                16.0, 4.0, 16.0, 4.0),
-                            hidesUnderline: true,
-                            isOverButton: true,
-                            isSearchable: true,
-                            isMultiSelect: false,
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding:
                         EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
                     child: FFButtonWidget(
                       onPressed: () async {
+                        logFirebaseEvent('Button_auth');
                         GoRouter.of(context).prepareAuthEvent();
 
                         final user = await authManager.signInWithEmail(
@@ -312,28 +227,42 @@ class _LoginWidgetState extends State<LoginWidget> {
                           return;
                         }
 
-                        await currentUserReference!
-                            .update(createUsersRecordData(
-                          selectedCity: _model.dropDownValue,
-                        ));
+                        if (valueOrDefault<bool>(
+                            currentUserDocument?.admin, false)) {
+                          logFirebaseEvent('Button_navigate_to');
 
-                        context.goNamedAuth(
-                          'all_pages',
-                          context.mounted,
-                          queryParameters: {
-                            'tabbarpageindex': serializeParam(
-                              0,
-                              ParamType.int,
-                            ),
-                          }.withoutNulls,
-                          extra: <String, dynamic>{
-                            kTransitionInfoKey: TransitionInfo(
-                              hasTransition: true,
-                              transitionType: PageTransitionType.fade,
-                              duration: Duration(milliseconds: 600),
-                            ),
-                          },
-                        );
+                          context.goNamedAuth(
+                            'all_pages',
+                            context.mounted,
+                            queryParameters: {
+                              'tabbarpageindex': serializeParam(
+                                0,
+                                ParamType.int,
+                              ),
+                            }.withoutNulls,
+                            extra: <String, dynamic>{
+                              kTransitionInfoKey: TransitionInfo(
+                                hasTransition: true,
+                                transitionType: PageTransitionType.fade,
+                                duration: Duration(milliseconds: 600),
+                              ),
+                            },
+                          );
+                        } else {
+                          logFirebaseEvent('Button_bottom_sheet');
+                          await showModalBottomSheet(
+                            isScrollControlled: true,
+                            backgroundColor: Colors.white,
+                            enableDrag: false,
+                            context: context,
+                            builder: (context) {
+                              return Padding(
+                                padding: MediaQuery.viewInsetsOf(context),
+                                child: OnlyAdminsWidget(),
+                              );
+                            },
+                          ).then((value) => safeSetState(() {}));
+                        }
                       },
                       text: 'Log In',
                       options: FFButtonOptions(
@@ -361,6 +290,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                   ),
                   FFButtonWidget(
                     onPressed: () async {
+                      logFirebaseEvent('Button_navigate_to');
+
                       context.pushNamed(
                         'forgotPassword',
                         extra: <String, dynamic>{
@@ -408,17 +339,17 @@ class _LoginWidgetState extends State<LoginWidget> {
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
+                            logFirebaseEvent('Icon_auth');
                             GoRouter.of(context).prepareAuthEvent();
                             final user =
                                 await authManager.signInWithGoogle(context);
                             if (user == null) {
                               return;
                             }
+                            logFirebaseEvent('Icon_backend_call');
 
                             await currentUserReference!
-                                .update(createUsersRecordData(
-                              selectedCity: _model.dropDownValue,
-                            ));
+                                .update(createUsersRecordData());
 
                             context.goNamedAuth('all_pages', context.mounted);
                           },

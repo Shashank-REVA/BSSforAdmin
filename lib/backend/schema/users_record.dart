@@ -46,25 +46,20 @@ class UsersRecord extends FirestoreRecord {
   String get phoneNumber => _phoneNumber ?? '';
   bool hasPhoneNumber() => _phoneNumber != null;
 
-  // "userRole" field.
-  String? _userRole;
-  String get userRole => _userRole ?? '';
-  bool hasUserRole() => _userRole != null;
-
-  // "password" field.
-  String? _password;
-  String get password => _password ?? '';
-  bool hasPassword() => _password != null;
-
   // "isGuest" field.
   bool? _isGuest;
   bool get isGuest => _isGuest ?? false;
   bool hasIsGuest() => _isGuest != null;
 
-  // "selected_city" field.
-  String? _selectedCity;
-  String get selectedCity => _selectedCity ?? '';
-  bool hasSelectedCity() => _selectedCity != null;
+  // "admin" field.
+  bool? _admin;
+  bool get admin => _admin ?? false;
+  bool hasAdmin() => _admin != null;
+
+  // "city" field.
+  String? _city;
+  String get city => _city ?? '';
+  bool hasCity() => _city != null;
 
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
@@ -73,10 +68,9 @@ class UsersRecord extends FirestoreRecord {
     _uid = snapshotData['uid'] as String?;
     _createdTime = snapshotData['created_time'] as DateTime?;
     _phoneNumber = snapshotData['phone_number'] as String?;
-    _userRole = snapshotData['userRole'] as String?;
-    _password = snapshotData['password'] as String?;
     _isGuest = snapshotData['isGuest'] as bool?;
-    _selectedCity = snapshotData['selected_city'] as String?;
+    _admin = snapshotData['admin'] as bool?;
+    _city = snapshotData['city'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -119,10 +113,9 @@ Map<String, dynamic> createUsersRecordData({
   String? uid,
   DateTime? createdTime,
   String? phoneNumber,
-  String? userRole,
-  String? password,
   bool? isGuest,
-  String? selectedCity,
+  bool? admin,
+  String? city,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -132,10 +125,9 @@ Map<String, dynamic> createUsersRecordData({
       'uid': uid,
       'created_time': createdTime,
       'phone_number': phoneNumber,
-      'userRole': userRole,
-      'password': password,
       'isGuest': isGuest,
-      'selected_city': selectedCity,
+      'admin': admin,
+      'city': city,
     }.withoutNulls,
   );
 
@@ -153,10 +145,9 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.uid == e2?.uid &&
         e1?.createdTime == e2?.createdTime &&
         e1?.phoneNumber == e2?.phoneNumber &&
-        e1?.userRole == e2?.userRole &&
-        e1?.password == e2?.password &&
         e1?.isGuest == e2?.isGuest &&
-        e1?.selectedCity == e2?.selectedCity;
+        e1?.admin == e2?.admin &&
+        e1?.city == e2?.city;
   }
 
   @override
@@ -167,10 +158,9 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.uid,
         e?.createdTime,
         e?.phoneNumber,
-        e?.userRole,
-        e?.password,
         e?.isGuest,
-        e?.selectedCity
+        e?.admin,
+        e?.city
       ]);
 
   @override

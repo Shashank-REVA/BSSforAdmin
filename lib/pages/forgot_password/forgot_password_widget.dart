@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'forgot_password_model.dart';
@@ -27,6 +28,8 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
 
     _model.emailAddressController ??= TextEditingController();
     _model.emailAddressFocusNode ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -154,6 +157,7 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                             EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                         child: FFButtonWidget(
                           onPressed: () async {
+                            logFirebaseEvent('Button-Login_auth');
                             if (_model.emailAddressController.text.isEmpty) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
@@ -168,6 +172,7 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                               email: _model.emailAddressController.text,
                               context: context,
                             );
+                            logFirebaseEvent('Button-Login_navigate_back');
                             context.pop();
                           },
                           text: 'Send Reset Link',

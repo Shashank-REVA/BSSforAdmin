@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -42,6 +43,8 @@ class _RoomsWidgetState extends State<RoomsWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => RoomsModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -60,7 +63,7 @@ class _RoomsWidgetState extends State<RoomsWidget> {
           stream: queryRoomsRecord(
             queryBuilder: (roomsRecord) => roomsRecord.where(
               'city',
-              isEqualTo: valueOrDefault(currentUserDocument?.selectedCity, ''),
+              isEqualTo: valueOrDefault(currentUserDocument?.city, ''),
             ),
             singleRecord: true,
           ),
@@ -71,10 +74,9 @@ class _RoomsWidgetState extends State<RoomsWidget> {
                 child: SizedBox(
                   width: 50.0,
                   height: 50.0,
-                  child: CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(
-                      FlutterFlowTheme.of(context).primary,
-                    ),
+                  child: SpinKitPulse(
+                    color: Color(0xFF322E5C),
+                    size: 50.0,
                   ),
                 ),
               );
@@ -259,12 +261,15 @@ class _RoomsWidgetState extends State<RoomsWidget> {
                             updateCount: (count) async {
                               setState(
                                   () => _model.countControllerValue = count);
+                              logFirebaseEvent('CountController_backend_call');
+
                               await containerRoomsRecord!.reference
                                   .update(createRoomsRecordData(
                                 no: _model.countControllerValue,
                               ));
                             },
                             stepSize: 1,
+                            minimum: 0,
                           ),
                         ),
                       ],
