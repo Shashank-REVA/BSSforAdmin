@@ -10,18 +10,23 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
 import '/pages/confirm_confirm/confirm_confirm_widget.dart';
+import '/pages/edit/edit_widget.dart';
 import '/pages/empty/empty_widget.dart';
+import '/pages/members/members_widget.dart';
+import '/pages/no_applications/no_applications_widget.dart';
+import '/pages/no_don/no_don_widget.dart';
 import '/pages/no_facility/no_facility_widget.dart';
+import '/pages/no_pri/no_pri_widget.dart';
+import '/pages/no_rooms/no_rooms_widget.dart';
 import '/pages/nobooking/nobooking_widget.dart';
 import '/pages/notifications/notifications_widget.dart';
 import '/pages/rooms/rooms_widget.dart';
 import 'all_pages_widget.dart' show AllPagesWidget;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -32,9 +37,9 @@ class AllPagesModel extends FlutterFlowModel<AllPagesWidget> {
   final unfocusNode = FocusNode();
   final formKey2 = GlobalKey<FormState>();
   final formKey1 = GlobalKey<FormState>();
-  // State field(s) for city widget.
-  String? cityValue;
-  FormFieldController<String>? cityValueController;
+  // State field(s) for cityyyy widget.
+  String? cityyyyValue;
+  FormFieldController<String>? cityyyyValueController;
   // State field(s) for TabBar widget.
   TabController? tabBarController;
   int get tabBarCurrentIndex =>
@@ -59,12 +64,14 @@ class AllPagesModel extends FlutterFlowModel<AllPagesWidget> {
 
   DateTime? datePicked;
   // Stores action output result for [Backend Call - API (Cancel)] action in Button widget.
+  ApiCallResponse? apiResulttl;
+  // Stores action output result for [Backend Call - API (Cancel)] action in Button widget.
   ApiCallResponse? apiResulttlt;
   // State field(s) for romtype widget.
   FocusNode? romtypeFocusNode;
-  TextEditingController? romtypeController;
-  String? Function(BuildContext, String?)? romtypeControllerValidator;
-  String? _romtypeControllerValidator(BuildContext context, String? val) {
+  TextEditingController? romtypeTextController;
+  String? Function(BuildContext, String?)? romtypeTextControllerValidator;
+  String? _romtypeTextControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Type is required';
     }
@@ -74,9 +81,9 @@ class AllPagesModel extends FlutterFlowModel<AllPagesWidget> {
 
   // State field(s) for pri widget.
   FocusNode? priFocusNode;
-  TextEditingController? priController;
-  String? Function(BuildContext, String?)? priControllerValidator;
-  String? _priControllerValidator(BuildContext context, String? val) {
+  TextEditingController? priTextController;
+  String? Function(BuildContext, String?)? priTextControllerValidator;
+  String? _priTextControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Price is required';
     }
@@ -86,9 +93,9 @@ class AllPagesModel extends FlutterFlowModel<AllPagesWidget> {
 
   // State field(s) for no widget.
   FocusNode? noFocusNode;
-  TextEditingController? noController;
-  String? Function(BuildContext, String?)? noControllerValidator;
-  String? _noControllerValidator(BuildContext context, String? val) {
+  TextEditingController? noTextController;
+  String? Function(BuildContext, String?)? noTextControllerValidator;
+  String? _noTextControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Number of room is required';
     }
@@ -96,34 +103,30 @@ class AllPagesModel extends FlutterFlowModel<AllPagesWidget> {
     return null;
   }
 
-  /// Initialization and disposal methods.
+  // Stores action output result for [Backend Call - API (csvExport)] action in Button widget.
+  ApiCallResponse? exceldownload;
 
   @override
   void initState(BuildContext context) {
     textController1Validator = _textController1Validator;
-    romtypeControllerValidator = _romtypeControllerValidator;
-    priControllerValidator = _priControllerValidator;
-    noControllerValidator = _noControllerValidator;
+    romtypeTextControllerValidator = _romtypeTextControllerValidator;
+    priTextControllerValidator = _priTextControllerValidator;
+    noTextControllerValidator = _noTextControllerValidator;
   }
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     tabBarController?.dispose();
     textFieldFocusNode?.dispose();
     textController1?.dispose();
 
     romtypeFocusNode?.dispose();
-    romtypeController?.dispose();
+    romtypeTextController?.dispose();
 
     priFocusNode?.dispose();
-    priController?.dispose();
+    priTextController?.dispose();
 
     noFocusNode?.dispose();
-    noController?.dispose();
+    noTextController?.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

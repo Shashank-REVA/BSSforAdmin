@@ -1,22 +1,15 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'only_admins_widget.dart' show OnlyAdminsWidget;
+import 'onlypriests_widget.dart' show OnlypriestsWidget;
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class OnlyAdminsModel extends FlutterFlowModel<OnlyAdminsWidget> {
-  /// Initialization and disposal methods.
-
+class OnlypriestsModel extends FlutterFlowModel<OnlypriestsWidget> {
   @override
   void initState(BuildContext context) {}
 
   @override
   void dispose() {}
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

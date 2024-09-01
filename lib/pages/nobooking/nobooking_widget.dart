@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'nobooking_model.dart';
@@ -27,8 +26,6 @@ class _NobookingWidgetState extends State<NobookingWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => NobookingModel());
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -63,8 +60,9 @@ class _NobookingWidgetState extends State<NobookingWidget> {
                       style:
                           FlutterFlowTheme.of(context).headlineSmall.override(
                                 fontFamily: 'Raleway',
-                                color: Color(0xFF2F2F2F),
+                                color: Color(0xFF090F13),
                                 fontSize: 20.0,
+                                letterSpacing: 0.0,
                                 fontWeight: FontWeight.w500,
                               ),
                     ),

@@ -46,6 +46,26 @@ class ConFacilityRecord extends FirestoreRecord {
   String get conGuestEmail => _conGuestEmail ?? '';
   bool hasConGuestEmail() => _conGuestEmail != null;
 
+  // "time" field.
+  DateTime? _time;
+  DateTime? get time => _time;
+  bool hasTime() => _time != null;
+
+  // "puja_loc" field.
+  String? _pujaLoc;
+  String get pujaLoc => _pujaLoc ?? '';
+  bool hasPujaLoc() => _pujaLoc != null;
+
+  // "puja_type" field.
+  String? _pujaType;
+  String get pujaType => _pujaType ?? '';
+  bool hasPujaType() => _pujaType != null;
+
+  // "extra" field.
+  String? _extra;
+  String get extra => _extra ?? '';
+  bool hasExtra() => _extra != null;
+
   void _initializeFields() {
     _conGuestName = snapshotData['con_guest_name'] as String?;
     _conGuestFacility = snapshotData['con_guest_facility'] as String?;
@@ -53,6 +73,10 @@ class ConFacilityRecord extends FirestoreRecord {
     _conFacilityDate = snapshotData['con_facility_date'] as String?;
     _conFacilityCity = snapshotData['con_facility_city'] as String?;
     _conGuestEmail = snapshotData['con_guest_email'] as String?;
+    _time = snapshotData['time'] as DateTime?;
+    _pujaLoc = snapshotData['puja_loc'] as String?;
+    _pujaType = snapshotData['puja_type'] as String?;
+    _extra = snapshotData['extra'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -96,6 +120,10 @@ Map<String, dynamic> createConFacilityRecordData({
   String? conFacilityDate,
   String? conFacilityCity,
   String? conGuestEmail,
+  DateTime? time,
+  String? pujaLoc,
+  String? pujaType,
+  String? extra,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -105,6 +133,10 @@ Map<String, dynamic> createConFacilityRecordData({
       'con_facility_date': conFacilityDate,
       'con_facility_city': conFacilityCity,
       'con_guest_email': conGuestEmail,
+      'time': time,
+      'puja_loc': pujaLoc,
+      'puja_type': pujaType,
+      'extra': extra,
     }.withoutNulls,
   );
 
@@ -121,7 +153,11 @@ class ConFacilityRecordDocumentEquality implements Equality<ConFacilityRecord> {
         e1?.conGuestNumber == e2?.conGuestNumber &&
         e1?.conFacilityDate == e2?.conFacilityDate &&
         e1?.conFacilityCity == e2?.conFacilityCity &&
-        e1?.conGuestEmail == e2?.conGuestEmail;
+        e1?.conGuestEmail == e2?.conGuestEmail &&
+        e1?.time == e2?.time &&
+        e1?.pujaLoc == e2?.pujaLoc &&
+        e1?.pujaType == e2?.pujaType &&
+        e1?.extra == e2?.extra;
   }
 
   @override
@@ -131,7 +167,11 @@ class ConFacilityRecordDocumentEquality implements Equality<ConFacilityRecord> {
         e?.conGuestNumber,
         e?.conFacilityDate,
         e?.conFacilityCity,
-        e?.conGuestEmail
+        e?.conGuestEmail,
+        e?.time,
+        e?.pujaLoc,
+        e?.pujaType,
+        e?.extra
       ]);
 
   @override

@@ -193,16 +193,16 @@ class ThemeTypography extends Typography {
 
   final FlutterFlowTheme theme;
 
-  String get displayLargeFamily => 'SuperTall';
-  TextStyle get displayLarge => TextStyle(
-        fontFamily: 'SuperTall',
+  String get displayLargeFamily => 'Poppins';
+  TextStyle get displayLarge => GoogleFonts.getFont(
+        'Poppins',
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 57.0,
       );
-  String get displayMediumFamily => 'SuperTall';
-  TextStyle get displayMedium => TextStyle(
-        fontFamily: 'SuperTall',
+  String get displayMediumFamily => 'Poppins';
+  TextStyle get displayMedium => GoogleFonts.getFont(
+        'Poppins',
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 45.0,
@@ -214,9 +214,9 @@ class ThemeTypography extends Typography {
         fontWeight: FontWeight.w600,
         fontSize: 24.0,
       );
-  String get headlineLargeFamily => 'SuperTall';
-  TextStyle get headlineLarge => TextStyle(
-        fontFamily: 'SuperTall',
+  String get headlineLargeFamily => 'Poppins';
+  TextStyle get headlineLarge => GoogleFonts.getFont(
+        'Poppins',
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 32.0,
@@ -235,9 +235,9 @@ class ThemeTypography extends Typography {
         fontWeight: FontWeight.bold,
         fontSize: 20.0,
       );
-  String get titleLargeFamily => 'SuperTall';
-  TextStyle get titleLarge => TextStyle(
-        fontFamily: 'SuperTall',
+  String get titleLargeFamily => 'Poppins';
+  TextStyle get titleLarge => GoogleFonts.getFont(
+        'Poppins',
         color: theme.primaryText,
         fontWeight: FontWeight.w500,
         fontSize: 22.0,
@@ -256,30 +256,30 @@ class ThemeTypography extends Typography {
         fontWeight: FontWeight.normal,
         fontSize: 16.0,
       );
-  String get labelLargeFamily => 'SuperTall';
-  TextStyle get labelLarge => TextStyle(
-        fontFamily: 'SuperTall',
+  String get labelLargeFamily => 'Poppins';
+  TextStyle get labelLarge => GoogleFonts.getFont(
+        'Poppins',
         color: theme.primaryText,
         fontWeight: FontWeight.w500,
         fontSize: 14.0,
       );
-  String get labelMediumFamily => 'SuperTall';
-  TextStyle get labelMedium => TextStyle(
-        fontFamily: 'SuperTall',
+  String get labelMediumFamily => 'Poppins';
+  TextStyle get labelMedium => GoogleFonts.getFont(
+        'Poppins',
         color: theme.primaryText,
         fontWeight: FontWeight.w500,
         fontSize: 12.0,
       );
-  String get labelSmallFamily => 'SuperTall';
-  TextStyle get labelSmall => TextStyle(
-        fontFamily: 'SuperTall',
+  String get labelSmallFamily => 'Poppins';
+  TextStyle get labelSmall => GoogleFonts.getFont(
+        'Poppins',
         color: theme.primaryText,
         fontWeight: FontWeight.w500,
         fontSize: 11.0,
       );
-  String get bodyLargeFamily => 'SuperTall';
-  TextStyle get bodyLarge => TextStyle(
-        fontFamily: 'SuperTall',
+  String get bodyLargeFamily => 'Poppins';
+  TextStyle get bodyLarge => GoogleFonts.getFont(
+        'Poppins',
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 16.0,
@@ -343,6 +343,7 @@ extension TextStyleHelper on TextStyle {
     bool useGoogleFonts = true,
     TextDecoration? decoration,
     double? lineHeight,
+    List<Shadow>? shadows,
   }) =>
       useGoogleFonts
           ? GoogleFonts.getFont(
@@ -354,6 +355,7 @@ extension TextStyleHelper on TextStyle {
               fontStyle: fontStyle ?? this.fontStyle,
               decoration: decoration,
               height: lineHeight,
+              shadows: shadows,
             )
           : copyWith(
               fontFamily: fontFamily,
@@ -364,5 +366,6 @@ extension TextStyleHelper on TextStyle {
               fontStyle: fontStyle,
               decoration: decoration,
               height: lineHeight,
+              shadows: shadows,
             );
 }

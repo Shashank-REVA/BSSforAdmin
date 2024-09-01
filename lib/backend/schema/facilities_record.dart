@@ -51,6 +51,31 @@ class FacilitiesRecord extends FirestoreRecord {
   String get guestEmail => _guestEmail ?? '';
   bool hasGuestEmail() => _guestEmail != null;
 
+  // "guest_location" field.
+  LatLng? _guestLocation;
+  LatLng? get guestLocation => _guestLocation;
+  bool hasGuestLocation() => _guestLocation != null;
+
+  // "time" field.
+  DateTime? _time;
+  DateTime? get time => _time;
+  bool hasTime() => _time != null;
+
+  // "puja_loc" field.
+  String? _pujaLoc;
+  String get pujaLoc => _pujaLoc ?? '';
+  bool hasPujaLoc() => _pujaLoc != null;
+
+  // "puja_type" field.
+  String? _pujaType;
+  String get pujaType => _pujaType ?? '';
+  bool hasPujaType() => _pujaType != null;
+
+  // "extra" field.
+  String? _extra;
+  String get extra => _extra ?? '';
+  bool hasExtra() => _extra != null;
+
   void _initializeFields() {
     _guestName = snapshotData['guest_name'] as String?;
     _guestFacility = snapshotData['guest_facility'] as String?;
@@ -59,6 +84,11 @@ class FacilitiesRecord extends FirestoreRecord {
     _facilityCity = snapshotData['facility_city'] as String?;
     _facilityConfimed = snapshotData['facility_confimed'] as bool?;
     _guestEmail = snapshotData['guest_email'] as String?;
+    _guestLocation = snapshotData['guest_location'] as LatLng?;
+    _time = snapshotData['time'] as DateTime?;
+    _pujaLoc = snapshotData['puja_loc'] as String?;
+    _pujaType = snapshotData['puja_type'] as String?;
+    _extra = snapshotData['extra'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -103,6 +133,11 @@ Map<String, dynamic> createFacilitiesRecordData({
   String? facilityCity,
   bool? facilityConfimed,
   String? guestEmail,
+  LatLng? guestLocation,
+  DateTime? time,
+  String? pujaLoc,
+  String? pujaType,
+  String? extra,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -113,6 +148,11 @@ Map<String, dynamic> createFacilitiesRecordData({
       'facility_city': facilityCity,
       'facility_confimed': facilityConfimed,
       'guest_email': guestEmail,
+      'guest_location': guestLocation,
+      'time': time,
+      'puja_loc': pujaLoc,
+      'puja_type': pujaType,
+      'extra': extra,
     }.withoutNulls,
   );
 
@@ -130,7 +170,12 @@ class FacilitiesRecordDocumentEquality implements Equality<FacilitiesRecord> {
         e1?.facilityDate == e2?.facilityDate &&
         e1?.facilityCity == e2?.facilityCity &&
         e1?.facilityConfimed == e2?.facilityConfimed &&
-        e1?.guestEmail == e2?.guestEmail;
+        e1?.guestEmail == e2?.guestEmail &&
+        e1?.guestLocation == e2?.guestLocation &&
+        e1?.time == e2?.time &&
+        e1?.pujaLoc == e2?.pujaLoc &&
+        e1?.pujaType == e2?.pujaType &&
+        e1?.extra == e2?.extra;
   }
 
   @override
@@ -141,7 +186,12 @@ class FacilitiesRecordDocumentEquality implements Equality<FacilitiesRecord> {
         e?.facilityDate,
         e?.facilityCity,
         e?.facilityConfimed,
-        e?.guestEmail
+        e?.guestEmail,
+        e?.guestLocation,
+        e?.time,
+        e?.pujaLoc,
+        e?.pujaType,
+        e?.extra
       ]);
 
   @override

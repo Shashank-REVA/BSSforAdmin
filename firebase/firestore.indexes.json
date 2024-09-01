@@ -1,3 +1,74 @@
 {
-  "indexes": []
+  "indexes": [
+    {
+      "collectionGroup": "facilities",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "facility_city",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "facility_date",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "con_facility",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "con_facility_city",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "con_facility_date",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "booked_priests",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "pri_city",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "pri_booked_dates",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "new_priests",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "new_city",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "pri_counter",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "booked_priests",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "pri_name",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "pri_booked_dates",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ]
 }

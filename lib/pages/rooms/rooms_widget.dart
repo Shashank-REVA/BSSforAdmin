@@ -5,7 +5,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -43,8 +42,6 @@ class _RoomsWidgetState extends State<RoomsWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => RoomsModel());
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -74,9 +71,10 @@ class _RoomsWidgetState extends State<RoomsWidget> {
                 child: SizedBox(
                   width: 50.0,
                   height: 50.0,
-                  child: SpinKitPulse(
-                    color: Color(0xFF322E5C),
-                    size: 50.0,
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      FlutterFlowTheme.of(context).primary,
+                    ),
                   ),
                 ),
               );
@@ -85,6 +83,7 @@ class _RoomsWidgetState extends State<RoomsWidget> {
             final containerRoomsRecord = containerRoomsRecordList.isNotEmpty
                 ? containerRoomsRecordList.first
                 : null;
+
             return Container(
               height: 120.0,
               decoration: BoxDecoration(
@@ -92,7 +91,7 @@ class _RoomsWidgetState extends State<RoomsWidget> {
                 borderRadius: BorderRadius.circular(25.0),
                 border: Border.all(
                   color: Color(0xFF322E5C),
-                  width: 3.0,
+                  width: 2.0,
                 ),
               ),
               child: Column(
@@ -143,6 +142,7 @@ class _RoomsWidgetState extends State<RoomsWidget> {
                                                 fontFamily: 'Montserrat',
                                                 color: Colors.white,
                                                 fontSize: 16.0,
+                                                letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w800,
                                               ),
                                         ),
@@ -154,6 +154,7 @@ class _RoomsWidgetState extends State<RoomsWidget> {
                                                 fontFamily: 'Montserrat',
                                                 color: Colors.white,
                                                 fontSize: 18.0,
+                                                letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w800,
                                               ),
                                         ),
@@ -179,6 +180,7 @@ class _RoomsWidgetState extends State<RoomsWidget> {
                                     fontFamily: 'Poppins',
                                     color: Colors.black,
                                     fontSize: 18.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.w800,
                                   ),
                             ),
@@ -198,6 +200,7 @@ class _RoomsWidgetState extends State<RoomsWidget> {
                                     fontFamily: 'Poppins',
                                     color: Color(0xFF322E5C),
                                     fontSize: 18.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.w800,
                                   ),
                             ),
@@ -219,6 +222,7 @@ class _RoomsWidgetState extends State<RoomsWidget> {
                                     fontFamily: 'Montserrat',
                                     color: Colors.black,
                                     fontSize: 18.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.w800,
                                   ),
                         ),
@@ -254,6 +258,7 @@ class _RoomsWidgetState extends State<RoomsWidget> {
                                   .titleLarge
                                   .override(
                                     fontFamily: 'Raleway',
+                                    letterSpacing: 0.0,
                                   ),
                             ),
                             count: _model.countControllerValue ??=
@@ -261,8 +266,6 @@ class _RoomsWidgetState extends State<RoomsWidget> {
                             updateCount: (count) async {
                               setState(
                                   () => _model.countControllerValue = count);
-                              logFirebaseEvent('CountController_backend_call');
-
                               await containerRoomsRecord!.reference
                                   .update(createRoomsRecordData(
                                 no: _model.countControllerValue,

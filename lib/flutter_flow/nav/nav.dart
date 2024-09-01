@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
@@ -80,18 +79,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? AllPagesWidget() : LoginWidget(),
+          appStateNotifier.loggedIn ? AllPagesWidget() : MainWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? AllPagesWidget() : LoginWidget(),
+              appStateNotifier.loggedIn ? AllPagesWidget() : MainWidget(),
         ),
         FFRoute(
-          name: 'Login',
-          path: '/login',
-          builder: (context, params) => LoginWidget(),
+          name: 'admin_Login',
+          path: '/adminLogin',
+          builder: (context, params) => AdminLoginWidget(),
         ),
         FFRoute(
           name: 'forgotPassword',
@@ -102,9 +101,56 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'all_pages',
           path: '/allPages',
           builder: (context, params) => AllPagesWidget(
-            btnclr: params.getParam('btnclr', ParamType.Color),
-            btntxt: params.getParam('btntxt', ParamType.Color),
-            tabbarpageindex: params.getParam('tabbarpageindex', ParamType.int),
+            btnclr: params.getParam(
+              'btnclr',
+              ParamType.Color,
+            ),
+            btntxt: params.getParam(
+              'btntxt',
+              ParamType.Color,
+            ),
+            tabbarpageindex: params.getParam(
+              'tabbarpageindex',
+              ParamType.int,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'adding_priest',
+          path: '/addingPriest',
+          builder: (context, params) => AddingPriestWidget(),
+        ),
+        FFRoute(
+          name: 'all_priests',
+          path: '/allPriests',
+          builder: (context, params) => AllPriestsWidget(),
+        ),
+        FFRoute(
+          name: 'priest_Login',
+          path: '/priestLogin',
+          builder: (context, params) => PriestLoginWidget(),
+        ),
+        FFRoute(
+          name: 'main',
+          path: '/main',
+          builder: (context, params) => MainWidget(),
+        ),
+        FFRoute(
+          name: 'priests_all_pages',
+          path: '/priestsAllPages',
+          builder: (context, params) => PriestsAllPagesWidget(
+            btnclr: params.getParam(
+              'btnclr',
+              ParamType.Color,
+            ),
+            btntxt: params.getParam(
+              'btntxt',
+              ParamType.Color,
+            ),
+            tabbarpageindex: params.getParam(
+              'tabbarpageindex',
+              ParamType.int,
+            ),
           ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
@@ -182,7 +228,7 @@ extension _GoRouterStateExtensions on GoRouterState {
       extra != null ? extra as Map<String, dynamic> : {};
   Map<String, dynamic> get allParams => <String, dynamic>{}
     ..addAll(pathParameters)
-    ..addAll(queryParameters)
+    ..addAll(uri.queryParameters)
     ..addAll(extraMap);
   TransitionInfo get transitionInfo => extraMap.containsKey(kTransitionInfoKey)
       ? extraMap[kTransitionInfoKey] as TransitionInfo
@@ -201,7 +247,7 @@ class FFParameters {
   // present is the special extra parameter reserved for the transition info.
   bool get isEmpty =>
       state.allParams.isEmpty ||
-      (state.extraMap.length == 1 &&
+      (state.allParams.length == 1 &&
           state.extraMap.containsKey(kTransitionInfoKey));
   bool isAsyncParam(MapEntry<String, dynamic> param) =>
       asyncParams.containsKey(param.key) && param.value is String;
@@ -222,10 +268,10 @@ class FFParameters {
 
   dynamic getParam<T>(
     String paramName,
-    ParamType type, [
+    ParamType type, {
     bool isList = false,
     List<String>? collectionNamePath,
-  ]) {
+  }) {
     if (futureParamValues.containsKey(paramName)) {
       return futureParamValues[paramName];
     }
@@ -238,8 +284,12 @@ class FFParameters {
       return param;
     }
     // Return serialized value.
-    return deserializeParam<T>(param, type, isList,
-        collectionNamePath: collectionNamePath);
+    return deserializeParam<T>(
+      param,
+      type,
+      isList,
+      collectionNamePath: collectionNamePath,
+    );
   }
 }
 
@@ -271,8 +321,8 @@ class FFRoute {
           }
 
           if (requireAuth && !appStateNotifier.loggedIn) {
-            appStateNotifier.setRedirectLocationIfUnset(state.location);
-            return '/login';
+            appStateNotifier.setRedirectLocationIfUnset(state.uri.toString());
+            return '/main';
           }
           return null;
         },
@@ -346,7 +396,7 @@ class RootPageContext {
   static bool isInactiveRootPage(BuildContext context) {
     final rootPageContext = context.read<RootPageContext?>();
     final isRootPage = rootPageContext?.isRootPage ?? false;
-    final location = GoRouter.of(context).location;
+    final location = GoRouterState.of(context).uri.toString();
     return isRootPage &&
         location != '/' &&
         location != rootPageContext?.errorRoute;
@@ -356,4 +406,14 @@ class RootPageContext {
         value: RootPageContext(true, errorRoute),
         child: child,
       );
+}
+
+extension GoRouterLocationExtension on GoRouter {
+  String getCurrentLocation() {
+    final RouteMatch lastMatch = routerDelegate.currentConfiguration.last;
+    final RouteMatchList matchList = lastMatch is ImperativeRouteMatch
+        ? lastMatch.matches
+        : routerDelegate.currentConfiguration;
+    return matchList.uri.toString();
+  }
 }

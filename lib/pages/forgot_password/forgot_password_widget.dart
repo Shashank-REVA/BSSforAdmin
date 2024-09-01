@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'forgot_password_model.dart';
@@ -26,10 +25,8 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
     super.initState();
     _model = createModel(context, () => ForgotPasswordModel());
 
-    _model.emailAddressController ??= TextEditingController();
+    _model.emailAddressTextController ??= TextEditingController();
     _model.emailAddressFocusNode ??= FocusNode();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -65,16 +62,20 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                       child: Padding(
                         padding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
-                        child: Container(
-                          width: 120.0,
-                          height: 120.0,
-                          clipBehavior: Clip.antiAlias,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                          ),
-                          child: Image.asset(
-                            'assets/images/220px-BSS_logo[1]_(1).png',
-                            fit: BoxFit.cover,
+                        child: Hero(
+                          tag: 'bssss',
+                          transitionOnUserGestures: true,
+                          child: Container(
+                            width: 120.0,
+                            height: 120.0,
+                            clipBehavior: Clip.antiAlias,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                            ),
+                            child: Image.asset(
+                              'assets/images/220px-BSS_logo[1]_(1).png',
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       ),
@@ -92,6 +93,7 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                                 fontFamily: 'Raleway',
                                 color: Color(0xFF2F2F2F),
                                 fontSize: 26.0,
+                                letterSpacing: 0.0,
                                 fontWeight: FontWeight.w800,
                               ),
                         ),
@@ -101,14 +103,22 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                       padding:
                           EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 20.0, 0.0),
                       child: TextFormField(
-                        controller: _model.emailAddressController,
+                        controller: _model.emailAddressTextController,
                         focusNode: _model.emailAddressFocusNode,
                         obscureText: false,
                         decoration: InputDecoration(
                           labelText: 'Your Email Address',
-                          labelStyle: FlutterFlowTheme.of(context).bodyMedium,
+                          labelStyle:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Lexend Deca',
+                                    letterSpacing: 0.0,
+                                  ),
                           hintText: 'Please enter a email...',
-                          hintStyle: FlutterFlowTheme.of(context).bodyMedium,
+                          hintStyle:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Lexend Deca',
+                                    letterSpacing: 0.0,
+                                  ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               color: FlutterFlowTheme.of(context).secondaryText,
@@ -144,9 +154,10 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                         style: FlutterFlowTheme.of(context).titleSmall.override(
                               fontFamily: 'Raleway',
                               color: Colors.black,
+                              letterSpacing: 0.0,
                             ),
                         keyboardType: TextInputType.emailAddress,
-                        validator: _model.emailAddressControllerValidator
+                        validator: _model.emailAddressTextControllerValidator
                             .asValidator(context),
                       ),
                     ),
@@ -157,8 +168,8 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                             EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                         child: FFButtonWidget(
                           onPressed: () async {
-                            logFirebaseEvent('Button-Login_auth');
-                            if (_model.emailAddressController.text.isEmpty) {
+                            if (_model
+                                .emailAddressTextController.text.isEmpty) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(
@@ -169,10 +180,9 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                               return;
                             }
                             await authManager.resetPassword(
-                              email: _model.emailAddressController.text,
+                              email: _model.emailAddressTextController.text,
                               context: context,
                             );
-                            logFirebaseEvent('Button-Login_navigate_back');
                             context.pop();
                           },
                           text: 'Send Reset Link',
@@ -191,6 +201,7 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                                   color: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
                                   fontSize: 16.0,
+                                  letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
                                 ),
                             elevation: 3.0,
