@@ -45,104 +45,264 @@ class _ConfirmConfirmWidgetState extends State<ConfirmConfirmWidget> {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(20.0),
-      child: Container(
-        width: 350.0,
-        height: 250.0,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 5.0,
-              color: Color(0x3B1D2429),
-              offset: Offset(
-                0.0,
-                -3.0,
-              ),
-            )
-          ],
-          borderRadius: BorderRadius.circular(40.0),
+      child: StreamBuilder<List<FacilitiesRecord>>(
+        stream: queryFacilitiesRecord(
+          singleRecord: true,
         ),
-        child: Padding(
-          padding: EdgeInsets.all(20.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Text(
-                'Are you sure to continue with this option?',
-                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Raleway',
-                      color: Color(0xFF2F2F2F),
-                      fontSize: 20.0,
-                      letterSpacing: 0.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
-                child: StreamBuilder<List<FacilitiesRecord>>(
-                  stream: queryFacilitiesRecord(
-                    singleRecord: true,
+        builder: (context, snapshot) {
+          // Customize what your widget looks like when it's loading.
+          if (!snapshot.hasData) {
+            return Center(
+              child: SizedBox(
+                width: 50.0,
+                height: 50.0,
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    FlutterFlowTheme.of(context).primary,
                   ),
-                  builder: (context, snapshot) {
-                    // Customize what your widget looks like when it's loading.
-                    if (!snapshot.hasData) {
-                      return Center(
-                        child: SizedBox(
-                          width: 50.0,
-                          height: 50.0,
-                          child: CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                              FlutterFlowTheme.of(context).primary,
+                ),
+              ),
+            );
+          }
+          List<FacilitiesRecord> bottomSheetEditFacilitiesRecordList =
+              snapshot.data!;
+          final bottomSheetEditFacilitiesRecord =
+              bottomSheetEditFacilitiesRecordList.isNotEmpty
+                  ? bottomSheetEditFacilitiesRecordList.first
+                  : null;
+
+          return Container(
+            width: 350.0,
+            height: 330.0,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 5.0,
+                  color: Color(0x3B1D2429),
+                  offset: Offset(
+                    0.0,
+                    -3.0,
+                  ),
+                )
+              ],
+              borderRadius: BorderRadius.circular(40.0),
+            ),
+            child: Padding(
+              padding: EdgeInsets.all(20.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  if ((bottomSheetEditFacilitiesRecord?.pujaLoc ==
+                          'IN ASHRAM') &&
+                      (bottomSheetEditFacilitiesRecord?.pujaType ==
+                          'DEATH RITUAL'))
+                    Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Align(
+                          alignment: AlignmentDirectional(-1.0, 0.0),
+                          child: AuthUserStreamWidget(
+                            builder: (context) =>
+                                StreamBuilder<List<FacilitiesRecord>>(
+                              stream: queryFacilitiesRecord(
+                                queryBuilder: (facilitiesRecord) =>
+                                    facilitiesRecord.where(
+                                  'facility_city',
+                                  isEqualTo: valueOrDefault(
+                                      currentUserDocument?.city, ''),
+                                ),
+                                singleRecord: true,
+                              ),
+                              builder: (context, snapshot) {
+                                // Customize what your widget looks like when it's loading.
+                                if (!snapshot.hasData) {
+                                  return Center(
+                                    child: SizedBox(
+                                      width: 50.0,
+                                      height: 50.0,
+                                      child: CircularProgressIndicator(
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                          FlutterFlowTheme.of(context).primary,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                }
+                                List<FacilitiesRecord>
+                                    textFacilitiesRecordList = snapshot.data!;
+                                final textFacilitiesRecord =
+                                    textFacilitiesRecordList.isNotEmpty
+                                        ? textFacilitiesRecordList.first
+                                        : null;
+
+                                return Text(
+                                  'Resouces Needed :',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Raleway',
+                                        color: Color(0xFF2F2F2F),
+                                        fontSize: 20.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                );
+                              },
                             ),
                           ),
                         ),
-                      );
-                    }
-                    List<FacilitiesRecord> buttonFacilitiesRecordList =
-                        snapshot.data!;
-                    // Return an empty Container when the item does not exist.
-                    if (snapshot.data!.isEmpty) {
-                      return Container();
-                    }
-                    final buttonFacilitiesRecord =
-                        buttonFacilitiesRecordList.isNotEmpty
-                            ? buttonFacilitiesRecordList.first
-                            : null;
+                        Align(
+                          alignment: AlignmentDirectional(-1.0, 0.0),
+                          child: Text(
+                            '1. Priest\n2. Hall',
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Raleway',
+                                  color: Color(0xFF32235C),
+                                  fontSize: 20.0,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  if ((bottomSheetEditFacilitiesRecord?.pujaLoc ==
+                          'OUTSIDE ASHRAM') &&
+                      (bottomSheetEditFacilitiesRecord?.pujaType ==
+                          'DEATH RITUAL'))
+                    Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Align(
+                          alignment: AlignmentDirectional(-1.0, 0.0),
+                          child: AuthUserStreamWidget(
+                            builder: (context) =>
+                                StreamBuilder<List<FacilitiesRecord>>(
+                              stream: queryFacilitiesRecord(
+                                queryBuilder: (facilitiesRecord) =>
+                                    facilitiesRecord.where(
+                                  'facility_city',
+                                  isEqualTo: valueOrDefault(
+                                      currentUserDocument?.city, ''),
+                                ),
+                                singleRecord: true,
+                              ),
+                              builder: (context, snapshot) {
+                                // Customize what your widget looks like when it's loading.
+                                if (!snapshot.hasData) {
+                                  return Center(
+                                    child: SizedBox(
+                                      width: 50.0,
+                                      height: 50.0,
+                                      child: CircularProgressIndicator(
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                          FlutterFlowTheme.of(context).primary,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                }
+                                List<FacilitiesRecord>
+                                    textFacilitiesRecordList = snapshot.data!;
+                                final textFacilitiesRecord =
+                                    textFacilitiesRecordList.isNotEmpty
+                                        ? textFacilitiesRecordList.first
+                                        : null;
 
-                    return FFButtonWidget(
+                                return Text(
+                                  'Resouces Needed :',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Raleway',
+                                        color: Color(0xFF2F2F2F),
+                                        fontSize: 20.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                        Align(
+                          alignment: AlignmentDirectional(-1.0, 0.0),
+                          child: Text(
+                            'Priest',
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Raleway',
+                                  color: Color(0xFF32235C),
+                                  fontSize: 20.0,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+                    child: Text(
+                      'Are you sure to continue with this option?',
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Raleway',
+                            color: Color(0xFF2F2F2F),
+                            fontSize: 20.0,
+                            letterSpacing: 0.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                    child: FFButtonWidget(
                       onPressed: () async {
                         await ConFacilityRecord.collection
                             .doc()
                             .set(createConFacilityRecordData(
-                              conGuestName: buttonFacilitiesRecord?.guestName,
-                              conGuestFacility:
-                                  buttonFacilitiesRecord?.guestFacility,
+                              conGuestName:
+                                  bottomSheetEditFacilitiesRecord?.guestName,
+                              conGuestFacility: bottomSheetEditFacilitiesRecord
+                                  ?.guestFacility,
                               conGuestNumber:
-                                  buttonFacilitiesRecord?.guestNumber,
+                                  bottomSheetEditFacilitiesRecord?.guestNumber,
                               conFacilityDate:
-                                  buttonFacilitiesRecord?.facilityDate,
+                                  bottomSheetEditFacilitiesRecord?.facilityDate,
                               conFacilityCity:
-                                  buttonFacilitiesRecord?.facilityCity,
-                              conGuestEmail: buttonFacilitiesRecord?.guestEmail,
-                              time: buttonFacilitiesRecord?.time,
-                              pujaLoc: buttonFacilitiesRecord?.pujaLoc,
-                              pujaType: buttonFacilitiesRecord?.pujaType,
-                              extra: buttonFacilitiesRecord?.extra,
+                                  bottomSheetEditFacilitiesRecord?.facilityCity,
+                              conGuestEmail:
+                                  bottomSheetEditFacilitiesRecord?.guestEmail,
+                              time: bottomSheetEditFacilitiesRecord?.time,
+                              pujaLoc: bottomSheetEditFacilitiesRecord?.pujaLoc,
+                              pujaType:
+                                  bottomSheetEditFacilitiesRecord?.pujaType,
+                              extra: bottomSheetEditFacilitiesRecord?.extra,
                             ));
                         unawaited(
                           () async {
                             _model.conf = await ConfirmCall.call(
-                              email: buttonFacilitiesRecord?.guestEmail,
+                              email:
+                                  bottomSheetEditFacilitiesRecord?.guestEmail,
                             );
                           }(),
                         );
-                        await buttonFacilitiesRecord!.reference.delete();
+                        await bottomSheetEditFacilitiesRecord!.reference
+                            .delete();
 
                         context.goNamed(
                           'all_pages',
                           queryParameters: {
                             'tabbarpageindex': serializeParam(
-                              2,
+                              3,
                               ParamType.int,
                             ),
                           }.withoutNulls,
@@ -183,52 +343,23 @@ class _ConfirmConfirmWidgetState extends State<ConfirmConfirmWidget> {
                         ),
                         borderRadius: BorderRadius.circular(20.0),
                       ),
-                    );
-                  },
-                ),
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
-                child: StreamBuilder<List<FacilitiesRecord>>(
-                  stream: queryFacilitiesRecord(
-                    singleRecord: true,
+                    ),
                   ),
-                  builder: (context, snapshot) {
-                    // Customize what your widget looks like when it's loading.
-                    if (!snapshot.hasData) {
-                      return Center(
-                        child: SizedBox(
-                          width: 50.0,
-                          height: 50.0,
-                          child: CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                              FlutterFlowTheme.of(context).primary,
-                            ),
-                          ),
-                        ),
-                      );
-                    }
-                    List<FacilitiesRecord> buttonFacilitiesRecordList =
-                        snapshot.data!;
-                    // Return an empty Container when the item does not exist.
-                    if (snapshot.data!.isEmpty) {
-                      return Container();
-                    }
-                    final buttonFacilitiesRecord =
-                        buttonFacilitiesRecordList.isNotEmpty
-                            ? buttonFacilitiesRecordList.first
-                            : null;
-
-                    return FFButtonWidget(
+                  Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                    child: FFButtonWidget(
                       onPressed: () async {
                         unawaited(
                           () async {
                             _model.canc = await CancelCall.call(
-                              email: buttonFacilitiesRecord?.guestEmail,
+                              email:
+                                  bottomSheetEditFacilitiesRecord?.guestEmail,
                             );
                           }(),
                         );
-                        await buttonFacilitiesRecord!.reference.delete();
+                        await bottomSheetEditFacilitiesRecord!.reference
+                            .delete();
 
                         context.goNamed(
                           'all_pages',
@@ -272,13 +403,13 @@ class _ConfirmConfirmWidgetState extends State<ConfirmConfirmWidget> {
                           width: 0.0,
                         ),
                       ),
-                    );
-                  },
-                ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }

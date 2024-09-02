@@ -415,52 +415,57 @@ class _AllPagesWidgetState extends State<AllPagesWidget>
                     ),
                   if (valueOrDefault(currentUserDocument?.city, '') == null ||
                       valueOrDefault(currentUserDocument?.city, '') == '')
-                    AuthUserStreamWidget(
-                      builder: (context) => FFButtonWidget(
-                        onPressed: () async {
-                          await currentUserReference!
-                              .update(createUsersRecordData(
-                            city: _model.cityyyyValue,
-                          ));
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
+                      child: AuthUserStreamWidget(
+                        builder: (context) => FFButtonWidget(
+                          onPressed: () async {
+                            await currentUserReference!
+                                .update(createUsersRecordData(
+                              city: _model.cityyyyValue,
+                            ));
 
-                          context.goNamed(
-                            'all_pages',
-                            queryParameters: {
-                              'tabbarpageindex': serializeParam(
-                                0,
-                                ParamType.int,
-                              ),
-                            }.withoutNulls,
-                            extra: <String, dynamic>{
-                              kTransitionInfoKey: TransitionInfo(
-                                hasTransition: true,
-                                transitionType: PageTransitionType.fade,
-                                duration: Duration(milliseconds: 0),
-                              ),
-                            },
-                          );
-                        },
-                        text: 'Set',
-                        options: FFButtonOptions(
-                          height: 40.0,
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              24.0, 0.0, 24.0, 0.0),
-                          iconPadding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 0.0),
-                          color: Color(0xFF322E5C),
-                          textStyle:
-                              FlutterFlowTheme.of(context).titleSmall.override(
-                                    fontFamily: 'Raleway',
-                                    color: Colors.white,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                          elevation: 3.0,
-                          borderSide: BorderSide(
-                            color: Colors.transparent,
-                            width: 1.0,
+                            context.goNamed(
+                              'all_pages',
+                              queryParameters: {
+                                'tabbarpageindex': serializeParam(
+                                  0,
+                                  ParamType.int,
+                                ),
+                              }.withoutNulls,
+                              extra: <String, dynamic>{
+                                kTransitionInfoKey: TransitionInfo(
+                                  hasTransition: true,
+                                  transitionType: PageTransitionType.fade,
+                                  duration: Duration(milliseconds: 0),
+                                ),
+                              },
+                            );
+                          },
+                          text: 'Set',
+                          options: FFButtonOptions(
+                            height: 40.0,
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                24.0, 0.0, 24.0, 0.0),
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            color: Color(0xFF322E5C),
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
+                                  fontFamily: 'Raleway',
+                                  color: Colors.white,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                            elevation: 3.0,
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(25.0),
                           ),
-                          borderRadius: BorderRadius.circular(25.0),
                         ),
                       ),
                     ),
@@ -1690,36 +1695,124 @@ class _AllPagesWidgetState extends State<AllPagesWidget>
                                                                           crossAxisAlignment:
                                                                               CrossAxisAlignment.start,
                                                                           children: [
-                                                                            Text(
-                                                                              listViewFacilitiesRecord.facilityCity,
-                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                    fontFamily: 'Raleway',
-                                                                                    color: Color(0xFF2F2F2F),
-                                                                                    fontSize: 22.0,
-                                                                                    letterSpacing: 0.0,
-                                                                                    fontWeight: FontWeight.w800,
+                                                                            if (listViewFacilitiesRecord.guestFacility ==
+                                                                                'Puja Booking')
+                                                                              StreamBuilder<List<BookedPriestsRecord>>(
+                                                                                stream: queryBookedPriestsRecord(
+                                                                                  queryBuilder: (bookedPriestsRecord) => bookedPriestsRecord.where(
+                                                                                    'pri_city',
+                                                                                    isEqualTo: valueOrDefault(currentUserDocument?.city, ''),
                                                                                   ),
-                                                                            ),
-                                                                            Text(
-                                                                              listViewFacilitiesRecord.guestFacility,
-                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                    fontFamily: 'Raleway',
-                                                                                    color: Color(0xFF2F2F2F),
-                                                                                    fontSize: 22.0,
-                                                                                    letterSpacing: 0.0,
-                                                                                    fontWeight: FontWeight.w800,
-                                                                                  ),
-                                                                            ),
+                                                                                  singleRecord: true,
+                                                                                ),
+                                                                                builder: (context, snapshot) {
+                                                                                  // Customize what your widget looks like when it's loading.
+                                                                                  if (!snapshot.hasData) {
+                                                                                    return Center(
+                                                                                      child: SizedBox(
+                                                                                        width: 50.0,
+                                                                                        height: 50.0,
+                                                                                        child: CircularProgressIndicator(
+                                                                                          valueColor: AlwaysStoppedAnimation<Color>(
+                                                                                            FlutterFlowTheme.of(context).primary,
+                                                                                          ),
+                                                                                        ),
+                                                                                      ),
+                                                                                    );
+                                                                                  }
+                                                                                  List<BookedPriestsRecord> textBookedPriestsRecordList = snapshot.data!;
+                                                                                  final textBookedPriestsRecord = textBookedPriestsRecordList.isNotEmpty ? textBookedPriestsRecordList.first : null;
+
+                                                                                  return Text(
+                                                                                    valueOrDefault<String>(
+                                                                                      textBookedPriestsRecord?.priName,
+                                                                                      'NAME',
+                                                                                    ),
+                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                          fontFamily: 'Raleway',
+                                                                                          color: Colors.black,
+                                                                                          fontSize: 20.0,
+                                                                                          letterSpacing: 0.0,
+                                                                                          fontWeight: FontWeight.bold,
+                                                                                        ),
+                                                                                  );
+                                                                                },
+                                                                              ),
                                                                             if (listViewFacilitiesRecord.guestFacility ==
                                                                                 'Puja Booking')
                                                                               Text(
                                                                                 listViewFacilitiesRecord.pujaType,
                                                                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                       fontFamily: 'Raleway',
-                                                                                      color: Color(0xFF2F2F2F),
-                                                                                      fontSize: 22.0,
+                                                                                      color: Colors.black,
+                                                                                      fontSize: 20.0,
                                                                                       letterSpacing: 0.0,
-                                                                                      fontWeight: FontWeight.w800,
+                                                                                      fontWeight: FontWeight.bold,
+                                                                                    ),
+                                                                              ),
+                                                                            Text(
+                                                                              listViewFacilitiesRecord.guestFacility,
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                    fontFamily: 'Raleway',
+                                                                                    color: Colors.black,
+                                                                                    fontSize: 20.0,
+                                                                                    letterSpacing: 0.0,
+                                                                                    fontWeight: FontWeight.bold,
+                                                                                  ),
+                                                                            ),
+                                                                            if (listViewFacilitiesRecord.guestFacility ==
+                                                                                'Puja Booking')
+                                                                              Text(
+                                                                                valueOrDefault<String>(
+                                                                                  listViewFacilitiesRecord.pujaLoc,
+                                                                                  'loc',
+                                                                                ),
+                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                      fontFamily: 'Raleway',
+                                                                                      color: Colors.black,
+                                                                                      fontSize: 20.0,
+                                                                                      letterSpacing: 0.0,
+                                                                                      fontWeight: FontWeight.bold,
+                                                                                    ),
+                                                                              ),
+                                                                            if ((listViewFacilitiesRecord.guestFacility == 'Puja Booking') &&
+                                                                                (listViewFacilitiesRecord.halltype != null && listViewFacilitiesRecord.halltype != ''))
+                                                                              Text(
+                                                                                valueOrDefault<String>(
+                                                                                  listViewFacilitiesRecord.halltype,
+                                                                                  'loc',
+                                                                                ),
+                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                      fontFamily: 'Raleway',
+                                                                                      color: Colors.black,
+                                                                                      fontSize: 20.0,
+                                                                                      letterSpacing: 0.0,
+                                                                                      fontWeight: FontWeight.bold,
+                                                                                    ),
+                                                                              ),
+                                                                            Text(
+                                                                              listViewFacilitiesRecord.facilityDate,
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                    fontFamily: 'Raleway',
+                                                                                    color: Colors.black,
+                                                                                    fontSize: 20.0,
+                                                                                    letterSpacing: 0.0,
+                                                                                    fontWeight: FontWeight.bold,
+                                                                                  ),
+                                                                            ),
+                                                                            if (listViewFacilitiesRecord.guestFacility ==
+                                                                                'Puja Booking')
+                                                                              Text(
+                                                                                valueOrDefault<String>(
+                                                                                  dateTimeFormat("jm", listViewFacilitiesRecord.time),
+                                                                                  'time',
+                                                                                ),
+                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                      fontFamily: 'Raleway',
+                                                                                      color: Colors.black,
+                                                                                      fontSize: 20.0,
+                                                                                      letterSpacing: 0.0,
+                                                                                      fontWeight: FontWeight.bold,
                                                                                     ),
                                                                               ),
                                                                             Text(
@@ -1746,46 +1839,6 @@ class _AllPagesWidgetState extends State<AllPagesWidget>
                                                                                     fontWeight: FontWeight.w600,
                                                                                   ),
                                                                             ),
-                                                                            Text(
-                                                                              listViewFacilitiesRecord.facilityDate,
-                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                    fontFamily: 'Raleway',
-                                                                                    color: Color(0xFF2F2F2F),
-                                                                                    fontSize: 18.0,
-                                                                                    letterSpacing: 0.0,
-                                                                                    fontWeight: FontWeight.w600,
-                                                                                  ),
-                                                                            ),
-                                                                            if (listViewFacilitiesRecord.guestFacility ==
-                                                                                'Puja Booking')
-                                                                              Text(
-                                                                                valueOrDefault<String>(
-                                                                                  dateTimeFormat("jm", listViewFacilitiesRecord.time),
-                                                                                  'time',
-                                                                                ),
-                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                      fontFamily: 'Raleway',
-                                                                                      color: Color(0xFF2F2F2F),
-                                                                                      fontSize: 18.0,
-                                                                                      letterSpacing: 0.0,
-                                                                                      fontWeight: FontWeight.w600,
-                                                                                    ),
-                                                                              ),
-                                                                            if (listViewFacilitiesRecord.guestFacility ==
-                                                                                'Puja Booking')
-                                                                              Text(
-                                                                                valueOrDefault<String>(
-                                                                                  listViewFacilitiesRecord.pujaLoc,
-                                                                                  'loc',
-                                                                                ),
-                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                      fontFamily: 'Raleway',
-                                                                                      color: Color(0xFF2F2F2F),
-                                                                                      fontSize: 18.0,
-                                                                                      letterSpacing: 0.0,
-                                                                                      fontWeight: FontWeight.w600,
-                                                                                    ),
-                                                                              ),
                                                                             if (listViewFacilitiesRecord.extra != null &&
                                                                                 listViewFacilitiesRecord.extra != '')
                                                                               Padding(
@@ -1985,16 +2038,252 @@ class _AllPagesWidgetState extends State<AllPagesWidget>
                                                                             crossAxisAlignment:
                                                                                 CrossAxisAlignment.start,
                                                                             children: [
-                                                                              Text(
-                                                                                listViewConFacilityRecord.conFacilityCity,
-                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                      fontFamily: 'Raleway',
-                                                                                      color: Color(0xFF2F2F2F),
-                                                                                      fontSize: 22.0,
-                                                                                      letterSpacing: 0.0,
-                                                                                      fontWeight: FontWeight.bold,
+                                                                              if ((listViewConFacilityRecord.pujaLoc == 'IN ASHRAM') && (listViewConFacilityRecord.pujaType == 'DEATH RITUAL'))
+                                                                                Padding(
+                                                                                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 15.0),
+                                                                                  child: StreamBuilder<List<ConFacilityRecord>>(
+                                                                                    stream: queryConFacilityRecord(
+                                                                                      queryBuilder: (conFacilityRecord) => conFacilityRecord.where(
+                                                                                        'con_facility_city',
+                                                                                        isEqualTo: valueOrDefault(currentUserDocument?.city, ''),
+                                                                                      ),
+                                                                                      singleRecord: true,
                                                                                     ),
-                                                                              ),
+                                                                                    builder: (context, snapshot) {
+                                                                                      // Customize what your widget looks like when it's loading.
+                                                                                      if (!snapshot.hasData) {
+                                                                                        return Center(
+                                                                                          child: SizedBox(
+                                                                                            width: 50.0,
+                                                                                            height: 50.0,
+                                                                                            child: CircularProgressIndicator(
+                                                                                              valueColor: AlwaysStoppedAnimation<Color>(
+                                                                                                FlutterFlowTheme.of(context).primary,
+                                                                                              ),
+                                                                                            ),
+                                                                                          ),
+                                                                                        );
+                                                                                      }
+                                                                                      List<ConFacilityRecord> columnConFacilityRecordList = snapshot.data!;
+                                                                                      final columnConFacilityRecord = columnConFacilityRecordList.isNotEmpty ? columnConFacilityRecordList.first : null;
+
+                                                                                      return Column(
+                                                                                        mainAxisSize: MainAxisSize.max,
+                                                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                        children: [
+                                                                                          Align(
+                                                                                            alignment: AlignmentDirectional(-1.0, 0.0),
+                                                                                            child: StreamBuilder<List<FacilitiesRecord>>(
+                                                                                              stream: queryFacilitiesRecord(
+                                                                                                queryBuilder: (facilitiesRecord) => facilitiesRecord.where(
+                                                                                                  'facility_city',
+                                                                                                  isEqualTo: valueOrDefault(currentUserDocument?.city, ''),
+                                                                                                ),
+                                                                                                singleRecord: true,
+                                                                                              ),
+                                                                                              builder: (context, snapshot) {
+                                                                                                // Customize what your widget looks like when it's loading.
+                                                                                                if (!snapshot.hasData) {
+                                                                                                  return Center(
+                                                                                                    child: SizedBox(
+                                                                                                      width: 50.0,
+                                                                                                      height: 50.0,
+                                                                                                      child: CircularProgressIndicator(
+                                                                                                        valueColor: AlwaysStoppedAnimation<Color>(
+                                                                                                          FlutterFlowTheme.of(context).primary,
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                  );
+                                                                                                }
+                                                                                                List<FacilitiesRecord> textFacilitiesRecordList = snapshot.data!;
+                                                                                                final textFacilitiesRecord = textFacilitiesRecordList.isNotEmpty ? textFacilitiesRecordList.first : null;
+
+                                                                                                return Text(
+                                                                                                  'Resouces Booked :',
+                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                        fontFamily: 'Raleway',
+                                                                                                        color: Color(0xFF2F2F2F),
+                                                                                                        fontSize: 20.0,
+                                                                                                        letterSpacing: 0.0,
+                                                                                                        fontWeight: FontWeight.bold,
+                                                                                                      ),
+                                                                                                );
+                                                                                              },
+                                                                                            ),
+                                                                                          ),
+                                                                                          Align(
+                                                                                            alignment: AlignmentDirectional(-1.0, 0.0),
+                                                                                            child: Text(
+                                                                                              '1. Priest\n2. Hall',
+                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                    fontFamily: 'Raleway',
+                                                                                                    color: Color(0xFF32235C),
+                                                                                                    fontSize: 20.0,
+                                                                                                    letterSpacing: 0.0,
+                                                                                                    fontWeight: FontWeight.bold,
+                                                                                                  ),
+                                                                                            ),
+                                                                                          ),
+                                                                                        ],
+                                                                                      );
+                                                                                    },
+                                                                                  ),
+                                                                                ),
+                                                                              if ((listViewConFacilityRecord.pujaLoc == 'OUTSIDE ASHRAM') && (listViewConFacilityRecord.pujaType == 'DEATH RITUAL'))
+                                                                                Padding(
+                                                                                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 15.0),
+                                                                                  child: StreamBuilder<List<ConFacilityRecord>>(
+                                                                                    stream: queryConFacilityRecord(
+                                                                                      queryBuilder: (conFacilityRecord) => conFacilityRecord.where(
+                                                                                        'con_facility_city',
+                                                                                        isEqualTo: valueOrDefault(currentUserDocument?.city, ''),
+                                                                                      ),
+                                                                                      singleRecord: true,
+                                                                                    ),
+                                                                                    builder: (context, snapshot) {
+                                                                                      // Customize what your widget looks like when it's loading.
+                                                                                      if (!snapshot.hasData) {
+                                                                                        return Center(
+                                                                                          child: SizedBox(
+                                                                                            width: 50.0,
+                                                                                            height: 50.0,
+                                                                                            child: CircularProgressIndicator(
+                                                                                              valueColor: AlwaysStoppedAnimation<Color>(
+                                                                                                FlutterFlowTheme.of(context).primary,
+                                                                                              ),
+                                                                                            ),
+                                                                                          ),
+                                                                                        );
+                                                                                      }
+                                                                                      List<ConFacilityRecord> columnConFacilityRecordList = snapshot.data!;
+                                                                                      final columnConFacilityRecord = columnConFacilityRecordList.isNotEmpty ? columnConFacilityRecordList.first : null;
+
+                                                                                      return Column(
+                                                                                        mainAxisSize: MainAxisSize.max,
+                                                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                        children: [
+                                                                                          Align(
+                                                                                            alignment: AlignmentDirectional(-1.0, 0.0),
+                                                                                            child: StreamBuilder<List<FacilitiesRecord>>(
+                                                                                              stream: queryFacilitiesRecord(
+                                                                                                queryBuilder: (facilitiesRecord) => facilitiesRecord.where(
+                                                                                                  'facility_city',
+                                                                                                  isEqualTo: valueOrDefault(currentUserDocument?.city, ''),
+                                                                                                ),
+                                                                                                singleRecord: true,
+                                                                                              ),
+                                                                                              builder: (context, snapshot) {
+                                                                                                // Customize what your widget looks like when it's loading.
+                                                                                                if (!snapshot.hasData) {
+                                                                                                  return Center(
+                                                                                                    child: SizedBox(
+                                                                                                      width: 50.0,
+                                                                                                      height: 50.0,
+                                                                                                      child: CircularProgressIndicator(
+                                                                                                        valueColor: AlwaysStoppedAnimation<Color>(
+                                                                                                          FlutterFlowTheme.of(context).primary,
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                  );
+                                                                                                }
+                                                                                                List<FacilitiesRecord> textFacilitiesRecordList = snapshot.data!;
+                                                                                                final textFacilitiesRecord = textFacilitiesRecordList.isNotEmpty ? textFacilitiesRecordList.first : null;
+
+                                                                                                return Text(
+                                                                                                  'Resouces Booked :',
+                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                        fontFamily: 'Raleway',
+                                                                                                        color: Color(0xFF2F2F2F),
+                                                                                                        fontSize: 20.0,
+                                                                                                        letterSpacing: 0.0,
+                                                                                                        fontWeight: FontWeight.bold,
+                                                                                                      ),
+                                                                                                );
+                                                                                              },
+                                                                                            ),
+                                                                                          ),
+                                                                                          Align(
+                                                                                            alignment: AlignmentDirectional(-1.0, 0.0),
+                                                                                            child: Text(
+                                                                                              'Priest',
+                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                    fontFamily: 'Raleway',
+                                                                                                    color: Color(0xFF32235C),
+                                                                                                    fontSize: 20.0,
+                                                                                                    letterSpacing: 0.0,
+                                                                                                    fontWeight: FontWeight.bold,
+                                                                                                  ),
+                                                                                            ),
+                                                                                          ),
+                                                                                        ],
+                                                                                      );
+                                                                                    },
+                                                                                  ),
+                                                                                ),
+                                                                              if (listViewConFacilityRecord.conGuestFacility == 'Puja Booking')
+                                                                                Padding(
+                                                                                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 5.0),
+                                                                                  child: StreamBuilder<List<BookedPriestsRecord>>(
+                                                                                    stream: queryBookedPriestsRecord(
+                                                                                      queryBuilder: (bookedPriestsRecord) => bookedPriestsRecord.where(
+                                                                                        'pri_city',
+                                                                                        isEqualTo: valueOrDefault(currentUserDocument?.city, ''),
+                                                                                      ),
+                                                                                      singleRecord: true,
+                                                                                    ),
+                                                                                    builder: (context, snapshot) {
+                                                                                      // Customize what your widget looks like when it's loading.
+                                                                                      if (!snapshot.hasData) {
+                                                                                        return Center(
+                                                                                          child: SizedBox(
+                                                                                            width: 50.0,
+                                                                                            height: 50.0,
+                                                                                            child: CircularProgressIndicator(
+                                                                                              valueColor: AlwaysStoppedAnimation<Color>(
+                                                                                                FlutterFlowTheme.of(context).primary,
+                                                                                              ),
+                                                                                            ),
+                                                                                          ),
+                                                                                        );
+                                                                                      }
+                                                                                      List<BookedPriestsRecord> textBookedPriestsRecordList = snapshot.data!;
+                                                                                      final textBookedPriestsRecord = textBookedPriestsRecordList.isNotEmpty ? textBookedPriestsRecordList.first : null;
+
+                                                                                      return Text(
+                                                                                        valueOrDefault<String>(
+                                                                                          textBookedPriestsRecord?.priName,
+                                                                                          'NAME',
+                                                                                        ),
+                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                              fontFamily: 'Raleway',
+                                                                                              color: Colors.black,
+                                                                                              fontSize: 20.0,
+                                                                                              letterSpacing: 0.0,
+                                                                                              fontWeight: FontWeight.bold,
+                                                                                            ),
+                                                                                      );
+                                                                                    },
+                                                                                  ),
+                                                                                ),
+                                                                              if (listViewConFacilityRecord.conGuestFacility == 'Puja Booking')
+                                                                                Padding(
+                                                                                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 5.0),
+                                                                                  child: Text(
+                                                                                    valueOrDefault<String>(
+                                                                                      listViewConFacilityRecord.pujaType,
+                                                                                      'time',
+                                                                                    ),
+                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                          fontFamily: 'Raleway',
+                                                                                          color: Colors.black,
+                                                                                          fontSize: 20.0,
+                                                                                          letterSpacing: 0.0,
+                                                                                          fontWeight: FontWeight.bold,
+                                                                                        ),
+                                                                                  ),
+                                                                                ),
                                                                               Padding(
                                                                                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 5.0),
                                                                                 child: Text(
@@ -2013,8 +2302,8 @@ class _AllPagesWidgetState extends State<AllPagesWidget>
                                                                                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 5.0),
                                                                                   child: Text(
                                                                                     valueOrDefault<String>(
-                                                                                      listViewConFacilityRecord.pujaType,
-                                                                                      'time',
+                                                                                      listViewConFacilityRecord.pujaLoc,
+                                                                                      'loc',
                                                                                     ),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           fontFamily: 'Raleway',
@@ -2025,6 +2314,19 @@ class _AllPagesWidgetState extends State<AllPagesWidget>
                                                                                         ),
                                                                                   ),
                                                                                 ),
+                                                                              Padding(
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 5.0),
+                                                                                child: Text(
+                                                                                  listViewConFacilityRecord.conFacilityDate,
+                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                        fontFamily: 'Raleway',
+                                                                                        color: Colors.black,
+                                                                                        fontSize: 20.0,
+                                                                                        letterSpacing: 0.0,
+                                                                                        fontWeight: FontWeight.bold,
+                                                                                      ),
+                                                                                ),
+                                                                              ),
                                                                               if (listViewConFacilityRecord.conGuestFacility == 'Puja Booking')
                                                                                 Padding(
                                                                                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 5.0),
@@ -2032,23 +2334,6 @@ class _AllPagesWidgetState extends State<AllPagesWidget>
                                                                                     valueOrDefault<String>(
                                                                                       dateTimeFormat("jm", listViewConFacilityRecord.time),
                                                                                       'time',
-                                                                                    ),
-                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                          fontFamily: 'Raleway',
-                                                                                          color: Colors.black,
-                                                                                          fontSize: 20.0,
-                                                                                          letterSpacing: 0.0,
-                                                                                          fontWeight: FontWeight.bold,
-                                                                                        ),
-                                                                                  ),
-                                                                                ),
-                                                                              if (listViewConFacilityRecord.conGuestFacility == 'Puja Booking')
-                                                                                Padding(
-                                                                                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 5.0),
-                                                                                  child: Text(
-                                                                                    valueOrDefault<String>(
-                                                                                      listViewConFacilityRecord.pujaLoc,
-                                                                                      'loc',
                                                                                     ),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           fontFamily: 'Raleway',
@@ -2076,19 +2361,6 @@ class _AllPagesWidgetState extends State<AllPagesWidget>
                                                                                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 5.0),
                                                                                 child: Text(
                                                                                   listViewConFacilityRecord.conGuestNumber,
-                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                        fontFamily: 'Raleway',
-                                                                                        color: Color(0xFF2F2F2F),
-                                                                                        fontSize: 18.0,
-                                                                                        letterSpacing: 0.0,
-                                                                                        fontWeight: FontWeight.w600,
-                                                                                      ),
-                                                                                ),
-                                                                              ),
-                                                                              Padding(
-                                                                                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 5.0),
-                                                                                child: Text(
-                                                                                  listViewConFacilityRecord.conFacilityDate,
                                                                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                         fontFamily: 'Raleway',
                                                                                         color: Color(0xFF2F2F2F),

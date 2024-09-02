@@ -150,48 +150,50 @@ class _EditWidgetState extends State<EditWidget> {
                           return Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 30.0, 0.0, 0.0),
-                                child: FFButtonWidget(
-                                  onPressed: () async {
-                                    await launchMap(
-                                      location:
-                                          columnFacilitiesRecord?.guestLocation,
-                                      title: '',
-                                    );
-                                  },
-                                  text: 'Get Location',
-                                  icon: FaIcon(
-                                    FontAwesomeIcons.locationArrow,
-                                    size: 15.0,
-                                  ),
-                                  options: FFButtonOptions(
-                                    width: double.infinity,
-                                    height: 52.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        24.0, 0.0, 24.0, 0.0),
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 10.0, 0.0),
-                                    color: Color(0xFF2F2F2F),
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .override(
-                                          fontFamily: 'Raleway',
-                                          color: Colors.white,
-                                          fontSize: 18.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                    elevation: 3.0,
-                                    borderSide: BorderSide(
-                                      color: Colors.transparent,
-                                      width: 1.0,
+                              if (columnFacilitiesRecord?.guestLocation != null)
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 30.0, 0.0, 0.0),
+                                  child: FFButtonWidget(
+                                    onPressed: () async {
+                                      await launchMap(
+                                        location: columnFacilitiesRecord
+                                            ?.guestLocation,
+                                        title: '',
+                                      );
+                                    },
+                                    text: 'Get Location',
+                                    icon: FaIcon(
+                                      FontAwesomeIcons.locationArrow,
+                                      size: 15.0,
                                     ),
-                                    borderRadius: BorderRadius.circular(20.0),
+                                    options: FFButtonOptions(
+                                      width: double.infinity,
+                                      height: 52.0,
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          24.0, 0.0, 24.0, 0.0),
+                                      iconPadding:
+                                          EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 0.0, 10.0, 0.0),
+                                      color: Color(0xFF2F2F2F),
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .override(
+                                            fontFamily: 'Raleway',
+                                            color: Colors.white,
+                                            fontSize: 18.0,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                      elevation: 3.0,
+                                      borderSide: BorderSide(
+                                        color: Colors.transparent,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(20.0),
+                                    ),
                                   ),
                                 ),
-                              ),
                               StreamBuilder<List<BookedPriestsRecord>>(
                                 stream: queryBookedPriestsRecord(
                                   singleRecord: true,

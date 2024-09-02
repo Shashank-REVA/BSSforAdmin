@@ -66,6 +66,11 @@ class ConFacilityRecord extends FirestoreRecord {
   String get extra => _extra ?? '';
   bool hasExtra() => _extra != null;
 
+  // "halltype" field.
+  String? _halltype;
+  String get halltype => _halltype ?? '';
+  bool hasHalltype() => _halltype != null;
+
   void _initializeFields() {
     _conGuestName = snapshotData['con_guest_name'] as String?;
     _conGuestFacility = snapshotData['con_guest_facility'] as String?;
@@ -77,6 +82,7 @@ class ConFacilityRecord extends FirestoreRecord {
     _pujaLoc = snapshotData['puja_loc'] as String?;
     _pujaType = snapshotData['puja_type'] as String?;
     _extra = snapshotData['extra'] as String?;
+    _halltype = snapshotData['halltype'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -124,6 +130,7 @@ Map<String, dynamic> createConFacilityRecordData({
   String? pujaLoc,
   String? pujaType,
   String? extra,
+  String? halltype,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -137,6 +144,7 @@ Map<String, dynamic> createConFacilityRecordData({
       'puja_loc': pujaLoc,
       'puja_type': pujaType,
       'extra': extra,
+      'halltype': halltype,
     }.withoutNulls,
   );
 
@@ -157,7 +165,8 @@ class ConFacilityRecordDocumentEquality implements Equality<ConFacilityRecord> {
         e1?.time == e2?.time &&
         e1?.pujaLoc == e2?.pujaLoc &&
         e1?.pujaType == e2?.pujaType &&
-        e1?.extra == e2?.extra;
+        e1?.extra == e2?.extra &&
+        e1?.halltype == e2?.halltype;
   }
 
   @override
@@ -171,7 +180,8 @@ class ConFacilityRecordDocumentEquality implements Equality<ConFacilityRecord> {
         e?.time,
         e?.pujaLoc,
         e?.pujaType,
-        e?.extra
+        e?.extra,
+        e?.halltype
       ]);
 
   @override

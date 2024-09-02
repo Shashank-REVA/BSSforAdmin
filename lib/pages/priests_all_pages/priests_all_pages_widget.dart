@@ -445,6 +445,19 @@ class _PriestsAllPagesWidgetState extends State<PriestsAllPagesWidget>
                                                                             Padding(
                                                                               padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 5.0),
                                                                               child: Text(
+                                                                                listViewBookedPriestsRecord.halltype,
+                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                      fontFamily: 'Raleway',
+                                                                                      color: Color(0xFF2F2F2F),
+                                                                                      fontSize: 22.0,
+                                                                                      letterSpacing: 0.0,
+                                                                                      fontWeight: FontWeight.bold,
+                                                                                    ),
+                                                                              ),
+                                                                            ),
+                                                                            Padding(
+                                                                              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 5.0),
+                                                                              child: Text(
                                                                                 listViewBookedPriestsRecord.guestName,
                                                                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                       fontFamily: 'Raleway',
@@ -483,38 +496,40 @@ class _PriestsAllPagesWidgetState extends State<PriestsAllPagesWidget>
                                                                                       ),
                                                                                 ),
                                                                               ),
-                                                                            FFButtonWidget(
-                                                                              onPressed: () async {
-                                                                                await launchMap(
-                                                                                  location: listViewBookedPriestsRecord.guestLocation,
-                                                                                  title: '',
-                                                                                );
-                                                                              },
-                                                                              text: 'Get Location',
-                                                                              icon: FaIcon(
-                                                                                FontAwesomeIcons.locationArrow,
-                                                                                size: 15.0,
-                                                                              ),
-                                                                              options: FFButtonOptions(
-                                                                                height: 40.0,
-                                                                                padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
-                                                                                iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
-                                                                                color: Color(0xFF2F2F2F),
-                                                                                textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                                                                                      fontFamily: 'Raleway',
-                                                                                      color: Colors.white,
-                                                                                      fontSize: 20.0,
-                                                                                      letterSpacing: 0.0,
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                    ),
-                                                                                elevation: 3.0,
-                                                                                borderSide: BorderSide(
-                                                                                  color: Colors.transparent,
-                                                                                  width: 1.0,
+                                                                            if (listViewBookedPriestsRecord.guestLocation !=
+                                                                                null)
+                                                                              FFButtonWidget(
+                                                                                onPressed: () async {
+                                                                                  await launchMap(
+                                                                                    location: listViewBookedPriestsRecord.guestLocation,
+                                                                                    title: '',
+                                                                                  );
+                                                                                },
+                                                                                text: 'Get Location',
+                                                                                icon: FaIcon(
+                                                                                  FontAwesomeIcons.locationArrow,
+                                                                                  size: 15.0,
                                                                                 ),
-                                                                                borderRadius: BorderRadius.circular(20.0),
+                                                                                options: FFButtonOptions(
+                                                                                  height: 40.0,
+                                                                                  padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                                                                                  iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
+                                                                                  color: Color(0xFF2F2F2F),
+                                                                                  textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                                                                                        fontFamily: 'Raleway',
+                                                                                        color: Colors.white,
+                                                                                        fontSize: 20.0,
+                                                                                        letterSpacing: 0.0,
+                                                                                        fontWeight: FontWeight.bold,
+                                                                                      ),
+                                                                                  elevation: 3.0,
+                                                                                  borderSide: BorderSide(
+                                                                                    color: Colors.transparent,
+                                                                                    width: 1.0,
+                                                                                  ),
+                                                                                  borderRadius: BorderRadius.circular(20.0),
+                                                                                ),
                                                                               ),
-                                                                            ),
                                                                           ],
                                                                         ),
                                                                       ),

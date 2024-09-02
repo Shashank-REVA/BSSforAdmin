@@ -91,6 +91,11 @@ class BookedPriestsRecord extends FirestoreRecord {
   String get extra => _extra ?? '';
   bool hasExtra() => _extra != null;
 
+  // "halltype" field.
+  String? _halltype;
+  String get halltype => _halltype ?? '';
+  bool hasHalltype() => _halltype != null;
+
   void _initializeFields() {
     _priName = snapshotData['pri_name'] as String?;
     _priPujaType = snapshotData['pri_puja_type'] as String?;
@@ -107,6 +112,7 @@ class BookedPriestsRecord extends FirestoreRecord {
     _pujaLoc = snapshotData['puja_loc'] as String?;
     _pujaBookedType = snapshotData['puja_booked_type'] as String?;
     _extra = snapshotData['extra'] as String?;
+    _halltype = snapshotData['halltype'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -159,6 +165,7 @@ Map<String, dynamic> createBookedPriestsRecordData({
   String? pujaLoc,
   String? pujaBookedType,
   String? extra,
+  String? halltype,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -177,6 +184,7 @@ Map<String, dynamic> createBookedPriestsRecordData({
       'puja_loc': pujaLoc,
       'puja_booked_type': pujaBookedType,
       'extra': extra,
+      'halltype': halltype,
     }.withoutNulls,
   );
 
@@ -203,7 +211,8 @@ class BookedPriestsRecordDocumentEquality
         e1?.time == e2?.time &&
         e1?.pujaLoc == e2?.pujaLoc &&
         e1?.pujaBookedType == e2?.pujaBookedType &&
-        e1?.extra == e2?.extra;
+        e1?.extra == e2?.extra &&
+        e1?.halltype == e2?.halltype;
   }
 
   @override
@@ -222,7 +231,8 @@ class BookedPriestsRecordDocumentEquality
         e?.time,
         e?.pujaLoc,
         e?.pujaBookedType,
-        e?.extra
+        e?.extra,
+        e?.halltype
       ]);
 
   @override
